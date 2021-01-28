@@ -36,7 +36,6 @@ const Input = styled.input`
     background-color: #0D2C4A;
     width:500px;
     height:300px;
-
     outline:none;
 `
 

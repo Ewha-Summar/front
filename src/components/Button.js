@@ -10,11 +10,12 @@ const StyledButton = styled.button`
   background: ${(props) => props.background || "rgba( 255, 255, 255, 0 )"};
   font-size: solid ${props=> props.font || 0}px;
   padding-right:5px;
+  outline:none;
 `
 
-function Button({ children, border, color, background, font, width }) {
+function Button({ children, border, color, background, font, width,...rest  }) {
   return (
-    <StyledButton border={border} color={color} background={background} font={font} width={width} >
+    <StyledButton border={border} color={color} background={background} font={font} width={width} {...rest}>
       {children}
     </StyledButton>
   )

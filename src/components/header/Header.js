@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import {  useHistory,Link } from "react-router-dom";
 import styled from "styled-components";
 import Button from '../../components/Button'
 import Logo from '../../assets/logo.png'
@@ -19,18 +20,20 @@ const Detail=styled.div`
 `
 
 const Header=()=>{
+  const history=useHistory();
     return(
         <Detail>
-            <MyIcon></MyIcon>
-            <Button font='15'> 문서요약 </Button>
-            <Button font='15'> o,x 문제 </Button>
-            <Button font='15'> 빈칸문제 </Button>
-            <Button font='15'> 요약검색 </Button>
-            <Button font='15'> AI 질의응답 </Button>
-            <Button font='15'> 마이페이지 </Button>
+          <Link to="/">
+            <MyIcon></MyIcon> </Link>
+            <Button font='15' onClick={() => history.push(`/summarize`)}> <p style={{fontWeight:'bold'}}>문서요약 </p></Button>
+            <Button font='15'onClick={() => history.push(`/oxpage`)}> <p style={{fontWeight:'bold'}}>o,x 문제</p> </Button>
+            <Button font='15'onClick={() => history.push(`/blank`)}> <p style={{fontWeight:'bold'}}>빈칸문제 </p></Button>
+            <Button font='15'onClick={() => history.push(`/search`)}><p style={{fontWeight:'bold'}}> 요약검색</p> </Button>
+            <Button font='15'onClick={() => history.push(`/`)}><p style={{fontWeight:'bold'}}> AI 질의응답</p> </Button>
+            <Button font='15'onClick={() => history.push(`/mypage`)}> <p style={{fontWeight:'bold'}}>마이페이지</p> </Button>
             <div></div><div></div><div></div>
-            <Button font='15'> Log In </Button>
-            <Button font='15' color='white' background='#10375C'> &nbsp;&nbsp;Sign Up&nbsp;&nbsp; </Button>
+            <Button font='15'  background='whitegray'> Log In </Button>
+            <Button font='15' color='white' background='#10375C'>&nbsp;&nbsp;Sign Up&nbsp;&nbsp;</Button>
             </Detail>
     );
 };
