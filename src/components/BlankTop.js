@@ -11,7 +11,7 @@ const BlankDiv = styled.div`
   }
 `;
 
-const BlankTop = ({ DesktopMargin, TabletMargin, MobileMargin }) => { //마진담당
+const BlankTop = ({ DesktopMargin, TabletMargin, MobileMargin }) => { //마진
   return (
     <BlankDiv
       DesktopMargin={DesktopMargin}
