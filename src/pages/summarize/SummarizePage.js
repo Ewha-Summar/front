@@ -11,7 +11,7 @@ import Footer from "../../components/footer/Footer";
 const Fix =styled.div`
 min-height:100vh;
 background-color:  #ffffff;
-`;
+`
 const Wrapper = styled.div`
   width:110rem;
   height: 100%;
@@ -57,7 +57,7 @@ const Input = styled.input`
        
 `
 const Box = styled.div`
-   width:500px;
+  width:500px;
   height:80px;
   display:flex;
   border: 1px solid #10375C;
