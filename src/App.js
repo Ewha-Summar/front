@@ -5,6 +5,7 @@ import BlankPage from './pages/blank/BlankPage'
 import SearchPage from './pages/search/SearchPage'
 import MyPage from './pages/mypage/MyPage'
 import OxPage from './pages/ox/OxPage'
+import AIPage from './pages/ai/AIPage'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route exact path="/search" component={SearchPage} />
           <Route exact path="/mypage" component={MyPage} />
           <Route exact path="/oxpage" component={OxPage} />
+          <Route exact path="/ai" component={AIPage} />
           </Switch>
 
     </Router>

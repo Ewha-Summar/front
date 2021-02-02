@@ -3,8 +3,7 @@ import styled from "styled-components";
 import Header from "../../components/header/Header";
 import BlankTop from "../../components/BlankTop";
 import TextComponent from "../../components/TextComponent";
-import {Radio,Checkbox,Form } from 'antd';
-import Button from "../../components/Button";
+import {Radio,Checkbox,Form, AutoComplete } from 'antd';
 import Footer from "../../components/footer/Footer_question";
 
 const Fix =styled.div`
@@ -53,16 +52,6 @@ const PinkTitle = styled.div`
     font-weight:bold;
     font-size: 40px;
 `
-const BlindText = styled.div`
-    font-family: NanumGothic;
-    color:#6A6A6A;
-    font-size: 15px;
-    width:1700px;
-    height:220px;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-`
 
 const GrayBox = styled.div`
   width: 1230px;
@@ -100,15 +89,35 @@ const Input = styled.input`
     line-height : 20px;
     font-size: 16px;
     overflow-wrap:"auto";
-    width:270px;
-    height: 40px;
+    width:1200px;
+    height: 50px;
     border: 1px solid #10375C;
     border-radius:5px;
     outline:none;
-    margin: auto;
+    margin: 20px 0px;
 `
 
-class BlankPage extends Component {
+const StyledButton = styled.button`
+  margin:auto;
+  height:  50px ;
+  width: 300px ;
+  border: 1px solid ${(props) => props.border|| "rgba( 255, 255, 255, 0 )"};
+  color: ${(props) => props.color || "black"};
+  background: ${(props) => props.background || "rgba( 255, 255, 255, 0 )"};
+  font-size: solid ${props=> props.font || 0}px;
+  padding-right:5px;
+  outline:none;
+  border-radius: 5px;
+`
+function Button({ children, border, color, background, font, width,...rest  }) {
+    return (
+      <StyledButton border={border} color={color} background={background} font={font} width={width} {...rest}>
+        {children}
+      </StyledButton>
+    )
+  }
+
+class AIPage extends Component {
   constructor(){
     super();
     this.state = {
@@ -154,37 +163,16 @@ class BlankPage extends Component {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <PinkBox><BlindText>문제를 풀고난 후 내용을 볼 수 있습니다. </BlindText></PinkBox>
+            <PinkBox></PinkBox>
           </Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <form onSubmit={this.formSubmit}>
           <Content>
-            <Title>O/X Quiz</Title>
-            <TextComponent title="퀴즈를 풀어보세요!"/>
-            <TextComponent title=""/> <TextComponent title=""/> <TextComponent title=""/>
+            <Title>AI Question</Title>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <GrayBox><QuestionNo>01</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer."></Input>
-          </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
-          <Content>
-            <GrayBox><QuestionNo>02</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer."></Input>
-          </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
-          <Content>
-            <GrayBox><QuestionNo>03</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer."></Input>
-          </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
-          <Content>
-            <GrayBox><QuestionNo>04</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer."></Input>
-          </Content>
-          <Content>
-            <TextComponent title="" />
+            <Input placeholder =" Input your text here."/>
             <Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button>
           </Content>
           </form>
@@ -199,4 +187,4 @@ class BlankPage extends Component {
 
 
 
-export default BlankPage;
+export default AIPage;

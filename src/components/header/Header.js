@@ -29,7 +29,7 @@ const Header=()=>{
             <Button font='15'onClick={() => history.push(`/oxpage`)}> <p style={{fontWeight:'bold'}}>o,x 문제</p> </Button>
             <Button font='15'onClick={() => history.push(`/blank`)}> <p style={{fontWeight:'bold'}}>빈칸문제 </p></Button>
             <Button font='15'onClick={() => history.push(`/search`)}><p style={{fontWeight:'bold'}}> 요약검색</p> </Button>
-            <Button font='15'onClick={() => history.push(`/`)}><p style={{fontWeight:'bold'}}> AI 질의응답</p> </Button>
+            <Button font='15'onClick={() => history.push(`/ai`)}><p style={{fontWeight:'bold'}}> AI 질의응답</p> </Button>
             <Button font='15'onClick={() => history.push(`/mypage`)}> <p style={{fontWeight:'bold'}}>마이페이지</p> </Button>
             <div></div><div></div><div></div>
             <Button font='15'  background='whitegray'> Log In </Button>
