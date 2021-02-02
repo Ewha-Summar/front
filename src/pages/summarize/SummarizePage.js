@@ -79,12 +79,20 @@ class SummarizePage extends Component {
   constructor() {
     super();
     this.state = { 
+      text:'',
       type:'',
       count:''
     };
+    this.onTextChange=this.onTextChange.bind(this);
     this.onTypeChange = this.onTypeChange.bind(this);
     this.onCountChange=this.onCountChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
+  }
+
+  onTextChange(event) {
+    this.setState({
+      text: event.target.value
+    });
   }
 
   onTypeChange(event) {
@@ -119,7 +127,7 @@ class SummarizePage extends Component {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
           <Content>
-          <Input placeholder="Input your text here."></Input></Content>
+          <Input placeholder="Input your text here."  onChange={this.onTextChange} ></Input></Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <Content>
           <Title>Select Text Type</Title>
