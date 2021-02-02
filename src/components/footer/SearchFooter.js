@@ -49,11 +49,10 @@ const Footer=()=>{
     return(
         <Wrapper>
         <Detail>
-            <Title> Wanna Study More?</Title>
-            <Button onClick={() => history.push(`/oxpage`)}> O,X 문제 풀어보러가기 </Button>
-            <Button onClick={() => history.push(`/blank`)}> 빈칸 문제 풀어보러가기 </Button>
+            <Title> Didn't you find the results? </Title>
+            <Button onClick={() => history.push(`/summarize`)}> 요약문 생성하러가기 </Button>
             </Detail>
-            <Content>  <p style={{color:'white', fontSize:'13px'}}> 방금 전 입력했던 문장을 학습해 보는건 어떨까요? </p> </Content>
+            <Content>  <p style={{color:'white', fontSize:'13px'}}> 요약문을 직접 생성해보세요!</p> </Content>
             </Wrapper>
     );
 };
