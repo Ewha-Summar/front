@@ -4,7 +4,7 @@ import Header from "../../components/header/Header";
 import BlankTop from "../../components/BlankTop";
 import TextComponent from "../../components/TextComponent";
 import {Radio,Checkbox,Form, AutoComplete } from 'antd';
-import Footer from "../../components/footer/Footer_question";
+import Footer from "../../components/footer/Footer_AI";
 
 const Fix =styled.div`
 min-height:100vh;
@@ -16,7 +16,6 @@ const Wrapper = styled.div`
   padding:30px;
   display: flex;
   flex-direction: column;
-
   margin: 10 auto;
 `
 
@@ -73,14 +72,30 @@ const QuestionNo = styled.div`
 `
 
 const Questiontext = styled.div`
-  padding: auto 80px;
   z-index: 5;
   display: flex;
   outline:none;
   font-family:Roboto;
-  font-siz:16px;
+  font-size:16px;
   align-items: center;
   padding-right: 20px;
+`
+
+const Confidence = styled.div`
+  width: 130px;
+  height: 30px;
+  margin: 25px auto auto 100px;
+  font-family: Raleway;
+  font-size:24px;
+`
+
+const ConfidenceValue = styled.div`
+  width: 120px;
+  height: 60px;
+  font-size:36px;
+  font-family:Roboto;
+  margin: 20px auto auto 0px;
+  color: #666666
 `
 
 const Input = styled.input`
@@ -89,7 +104,7 @@ const Input = styled.input`
     line-height : 20px;
     font-size: 16px;
     overflow-wrap:"auto";
-    width:1200px;
+    width:1270px;
     height: 50px;
     border: 1px solid #10375C;
     border-radius:5px;
@@ -98,7 +113,7 @@ const Input = styled.input`
 `
 
 const StyledButton = styled.button`
-  margin:auto;
+  margin:auto 0 auto auto;
   height:  50px ;
   width: 300px ;
   border: 1px solid ${(props) => props.border|| "rgba( 255, 255, 255, 0 )"};
@@ -121,28 +136,19 @@ class AIPage extends Component {
   constructor(){
     super();
     this.state = {
-      answer1:"",
-      answer2:"",
-      answer3:"",
-      answer4:""
+      question:"",
+      answer:"Develop a website by finding a product identity that has value and branding to ******  a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company",
+      confidence:90,
     };
-    this.onTypeChange = this.onTypeChange.bind(this);
-    this.onCountChange=this.onCountChange.bind(this);
+    this.onQuestionChange = this.onQuestionChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
-  onTypeChange(event) {
+  onQuestionChange(event) {
     this.setState({
-      type: event.target.value
+      question: event.target.value
     });
   }
-
-  onCountChange(event) {
-    this.setState({
-      count: event.target.value
-    });
-  }
-
 
   formSubmit(event) {
     event.preventDefault();
@@ -172,11 +178,20 @@ class AIPage extends Component {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <Input placeholder =" Input your text here."/>
+            <Input placeholder =" Input your text here." value={this.state.question} onChange={this.onQuestionChange}/>
             <Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button>
           </Content>
           </form>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <Content>
+            <GrayBox>
+              <QuestionNo>A</QuestionNo>
+              <Questiontext>{this.state.answer}</Questiontext>
+            </GrayBox>
+            <Confidence>Confidence</Confidence>
+            <ConfidenceValue>{this.state.confidence}%</ConfidenceValue>
+          </Content>
         </Wrapper>
       </Fix>
       <Footer></Footer>

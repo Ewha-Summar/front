@@ -115,30 +115,26 @@ class BlankPage extends Component {
       answer1:"",
       answer2:"",
       answer3:"",
-      answer4:""
+      answer4:"",
+      summary_result:"문제를 풀고 난 후 내용을 볼 수 있습니다."
     };
-    this.onTypeChange = this.onTypeChange.bind(this);
-    this.onCountChange=this.onCountChange.bind(this);
+    this.onAnswerChange = this.onAnswerChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
-  onTypeChange(event) {
+  onAnswerChange(event) {
+    const target = event.target;
+    const name = target.name;
     this.setState({
-      type: event.target.value
+      [name]: event.target.value
     });
   }
-
-  onCountChange(event) {
-    this.setState({
-      count: event.target.value
-    });
-  }
-
 
   formSubmit(event) {
     event.preventDefault();
     console.log(this.state)
   }
+
   render(){
     return (
     <div>
@@ -154,7 +150,7 @@ class BlankPage extends Component {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <PinkBox><BlindText>문제를 풀고난 후 내용을 볼 수 있습니다. </BlindText></PinkBox>
+            <PinkBox><BlindText>{this.state.summary_result}</BlindText></PinkBox>
           </Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <form onSubmit={this.formSubmit}>
@@ -166,22 +162,22 @@ class BlankPage extends Component {
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
             <GrayBox><QuestionNo>01</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer."></Input>
+            <Input placeholder=" Input your answer." name={'answer1'} value={this.state.answer1} onChange={this.onAnswerChange}></Input>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <GrayBox><QuestionNo>02</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer."></Input>
+            <GrayBox><QuestionNo>02</QuestionNo><Questiontext>Develop a website by finding a product identity that has value value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
+            <Input placeholder=" Input your answer." name={'answer2'} value={this.state.answer2} onChange={this.onAnswerChange}></Input>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <GrayBox><QuestionNo>03</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer."></Input>
+            <GrayBox><QuestionNo>03</QuestionNo><Questiontext>Develop a website by finding a product identity that has value value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
+            <Input placeholder=" Input your answer." name={'answer3'} value={this.state.answer3} onChange={this.onAnswerChange}></Input>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <GrayBox><QuestionNo>04</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer."></Input>
+            <GrayBox><QuestionNo>04</QuestionNo><Questiontext>Develop a website by finding a product identity that has value value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
+            <Input placeholder=" Input your answer." name={'answer4'} value={this.state.answer4} onChange={this.onAnswerChange}></Input>
           </Content>
           <Content>
             <TextComponent title="" />

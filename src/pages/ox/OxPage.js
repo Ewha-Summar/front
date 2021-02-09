@@ -108,25 +108,20 @@ class OxPage extends Component {
       ox_1:"",
       ox_2:"",
       ox_3:"",
-      ox_4:""
+      ox_4:"",
+      summary_result:"문제를 풀고 난 후 내용을 볼 수 있습니다."
     };
-    this.onTypeChange = this.onTypeChange.bind(this);
-    this.onCountChange=this.onCountChange.bind(this);
+    this.onOXChange = this.onOXChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
-  onTypeChange(event) {
+  onOXChange(event) {
+    const target = event.target;
+    const name = target.name;
     this.setState({
-      type: event.target.value
+      [name]: event.target.value
     });
   }
-
-  onCountChange(event) {
-    this.setState({
-      count: event.target.value
-    });
-  }
-
 
   formSubmit(event) {
     event.preventDefault();
@@ -147,7 +142,7 @@ class OxPage extends Component {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <PinkBox><BlindText>문제를 풀고난 후 내용을 볼 수 있습니다. </BlindText></PinkBox>
+            <PinkBox><BlindText>{this.state.summary_result} </BlindText></PinkBox>
           </Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <form onSubmit={this.formSubmit}>
@@ -160,40 +155,40 @@ class OxPage extends Component {
           <Content>
             <GrayBox><QuestionNo>01</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
             <Box>
-              <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'type'} onChange={this.onTypeChange}>
+              <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'ox_1'} onChange={this.onOXChange}>
                 <Radio style={{margin:'35px', paddingRight:'60px'}}  checked={this.state.ox_1 === "o"} value="o">O</Radio>
                 <Radio style={{margin:'35px'}} checked={this.state.ox_1 === "x"} value="x">X</Radio>
-              </Radio.Group> 
+              </Radio.Group>
             </Box>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
             <GrayBox><QuestionNo>02</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
             <Box>
-              <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'type'} onChange={this.onTypeChange}>
+              <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'ox_2'} onChange={this.onOXChange}>
                 <Radio style={{margin:'35px', paddingRight:'60px'}}  checked={this.state.ox_2 === "o"} value="o">O</Radio>
                 <Radio style={{margin:'35px'}} checked={this.state.ox_2 === "x"} value="x">X</Radio>
-              </Radio.Group> 
+              </Radio.Group>
             </Box>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
             <GrayBox><QuestionNo>03</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
             <Box>
-              <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'type'} onChange={this.onTypeChange}>
+              <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'ox_3'} onChange={this.onOXChange}>
                 <Radio style={{margin:'35px', paddingRight:'60px'}}  checked={this.state.ox_3 === "o"} value="o">O</Radio>
                 <Radio style={{margin:'35px'}} checked={this.state.ox_3 === "x"} value="x">X</Radio>
-              </Radio.Group> 
+              </Radio.Group>
             </Box>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
             <GrayBox><QuestionNo>04</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
             <Box>
-              <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'type'} onChange={this.onTypeChange}>
+              <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'ox_4'} onChange={this.onOXChange}>
                 <Radio style={{margin:'35px', paddingRight:'60px'}}  checked={this.state.ox_4 === "o"} value="o">O</Radio>
                 <Radio style={{margin:'35px'}} checked={this.state.ox_4 === "x"} value="x">X</Radio>
-              </Radio.Group> 
+              </Radio.Group>
             </Box>
           </Content>
           <Content>
@@ -201,7 +196,7 @@ class OxPage extends Component {
             <Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button>
           </Content>
           </form>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
         </Wrapper>
       </Fix>
       <Footer></Footer>
