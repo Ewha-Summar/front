@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 import BlankTop from '../../components/BlankTop'
 import Button from '../../components/Button'
+import {  useHistory,Link } from "react-router-dom";
 
 const Wrapper = styled.div`
 margin-top:50px;
@@ -40,7 +41,7 @@ const Input = styled.input`
 `
 
 const CardComponent = ({title}) => { 
-
+  const history=useHistory();
 
     return(
     <>
@@ -50,7 +51,7 @@ const CardComponent = ({title}) => {
         <Title> 요약하고싶은 텍스트를 입력하세요. </Title>
         <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />      
         <Input placeholder="Enter your Text."></Input>
-        <Button font='12' color='white' background='#EF746F' width='100'> &nbsp;&nbsp; &nbsp;  &nbsp;&nbsp; &nbsp; Summarize Your Text &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  </Button>
+        <Button font='12' color='white' background='#EF746F' width='100'onClick={() => history.push(`/summarize`)} > &nbsp;&nbsp; &nbsp;  &nbsp;&nbsp; &nbsp; Summarize Your Text &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  </Button>
         <BlankTop DesktopMargin='1' TabletMargin='1' MobileMargin='1' /> 
         </Column>
         </Wrapper></> 

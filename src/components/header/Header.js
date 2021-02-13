@@ -32,8 +32,8 @@ const Header=()=>{
             <Button font='15'onClick={() => history.push(`/ai`)}><p style={{fontWeight:'bold'}}> AI 질의응답</p> </Button>
             <Button font='15'onClick={() => history.push(`/mypage`)}> <p style={{fontWeight:'bold'}}>마이페이지</p> </Button>
             <div></div><div></div><div></div>
-            <Button font='15'  background='whitegray'> Log In </Button>
-            <Button font='15' color='white' background='#10375C'>&nbsp;&nbsp;Sign Up&nbsp;&nbsp;</Button>
+            <Button font='15'  background='whitegray' onClick={() => history.push(`/login`)} > Log In </Button>
+            <Button font='15' color='white' background='#10375C' onClick={() => history.push(`/register`)} >&nbsp;&nbsp;Sign Up&nbsp;&nbsp;</Button>
             </Detail>
     );
 };

@@ -1,6 +1,6 @@
 import axios from 'axios'
-import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST} from './types'
-import { USER_SERVER } from '../components/config';
+import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST} from './type'
+import { USER_SERVER } from '../config';
 
 
 export const loginUser=(dataToSubmit)=>{

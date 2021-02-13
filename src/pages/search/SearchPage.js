@@ -50,6 +50,7 @@ const Input = styled.input`
 `
 
 const SearchPage = (match) => {
+  
 
   return (
     <div>

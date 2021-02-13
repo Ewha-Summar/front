@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import Button from "../../components/Button"
 
+
 const Wrapper = styled.div`
 margin-top:100px;
   width:700px;
@@ -53,6 +54,7 @@ const Row=styled.div`
 `
 
 const CardComponent =() =>{
+    
     return(
         <Wrapper>
             <Circle /> 
@@ -60,7 +62,7 @@ const CardComponent =() =>{
             <Title>Summary Title</Title></Row>
             <Row>
             <Content> Make the appearance of a mobile application that has quality and increases user convenience</Content>
-            <Button margin={'10'} color={'#10375C'} weight={'bold'}>Read More >> </Button>
+            <Button margin={'10'} color={'#10375C'} weight={'bold'} >Read More >> </Button>
             </Row>
         </Wrapper>
     );
