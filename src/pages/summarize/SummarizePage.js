@@ -159,15 +159,7 @@ class SummarizePage extends Component {
           <SmallInput type="text" placeholder="Input your text here."  onChange={this.onTitleChange} ></SmallInput>
           <SmallInput type="text" placeholder="Input your text here."  onChange={this.onAuthorChange} ></SmallInput></Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
-          <Content>
-            <Title>Summarize Your Text</Title>
-            <TextComponent title="요약하고싶은 텍스트를 입력하세요!" />
-            <TextComponent title="" /> <TextComponent title="" /> <TextComponent title="" />
-          </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
-          <Content>
-          <Input type="text" placeholder="Input your text here."  onChange={this.onTextChange} ></Input></Content>
-          <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
+          
           <Content>
           <Title>Select Text Type</Title>
           <TextComponent title="요약하는 문장의 종류를 선택하세요!" />
@@ -191,7 +183,16 @@ class SummarizePage extends Component {
               </Radio.Group> </Box>  
       
           </Content>
-          <BlankTop DesktopMargin='1' TabletMargin='1' MobileMargin='1' /> 
+          <BlankTop DesktopMargin='5' TabletMargin='1' MobileMargin='1' /> 
+          <Content>
+            <Title>Summarize Your Text</Title>
+            <TextComponent title="요약하고싶은 텍스트를 입력하세요!" />
+            <TextComponent title="" /> <TextComponent title="" /> <TextComponent title="" />
+          </Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
+          <Content>
+          <Input type="text" placeholder="Input your text here."  onChange={this.onTextChange} ></Input></Content>
+          <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <Content>
           <TextComponent title="" />
           <Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button></Content>
