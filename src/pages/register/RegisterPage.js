@@ -8,30 +8,26 @@ import { Formik } from "formik";
 import Header from '../../components/header/Header'
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
-import {
-    Form, Button
-  } from 'antd';
+import {Form, Button} from 'antd';
 
 const Fix =styled.div`
 min-height:100vh;
 background-color:  #ffffff;
-`;
+`
+const Center=styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`
 const Wrapper = styled.div`
   width:110rem;
   height: 100%;
   padding:30px;
   display: flex;
   flex-direction: column;
-
   margin: 10 auto;
 `
-const MyIcon = styled.img`
-  width:400px;
-`;
 
-MyIcon.defaultProps = {
-  src: Logo,
-};
 
 
 const Column=styled.div`
@@ -47,30 +43,18 @@ const Input = styled.input`
   width: 370px;
   color: black;
   outline: none;
-  @media (max-width: 768px) {
-    //iphone
-    width: 250px;
-  }
-  @media (max-width: 767px) { //iphone
-    width:220px;
-  }
- 
-`;
+`
 const Content=styled.div`
    display: flex;
   flex-direction: row;
-  align-content:center
+  align-content:center;
 `
 
-const Center=styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-`
+
 
 function RegisterPage(props){
+
     const dispatch = useDispatch();
-    
   return (
     <>
     <Fix>
