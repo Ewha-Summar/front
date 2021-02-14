@@ -43,18 +43,29 @@ const PinkTitle = styled.div`
     font-weight:bold;
     font-size: 40px;
 `
-const Input = styled.input`
+const Input = styled.textarea`
     font-family: NanumGothic;
     color:#000000;
-    line-height: 9px;
+    line-height: 15px;
     font-size: 13px;
-    overflow-wrap:"auto";
+    overflow-wrap:auto;
     width:1700px;
     height:220px;
     border: 1px solid #10375C;
     border-radius:10px;
-    outline:none;
-       
+    outline:none;     
+`
+const SmallInput = styled.input`
+    font-family: NanumGothic;
+    color:#000000;
+    line-height: 15px;
+    font-size: 13px;
+    overflow-wrap:auto;
+    width:680px;
+    height:80px;
+    border: 1px solid #10375C;
+    border-radius:10px;
+    outline:none;     
 `
 const Box = styled.div`
   width:500px;
@@ -78,7 +89,9 @@ const PinkBox = styled.div`
 class SummarizePage extends Component { 
   constructor() {
     super();
-    this.state = { 
+    this.state = {
+      title:'',
+      author:'', 
       text:'',
       type:'',
       count:''
@@ -86,6 +99,8 @@ class SummarizePage extends Component {
     this.onTextChange=this.onTextChange.bind(this);
     this.onTypeChange = this.onTypeChange.bind(this);
     this.onCountChange=this.onCountChange.bind(this);
+    this.onTitleChange=this.onTitleChange.bind(this);
+    this.onAuthorChange=this.onAuthorChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
@@ -94,6 +109,18 @@ class SummarizePage extends Component {
       text: event.target.value
     });
   }
+  onTitleChange(event) {
+    this.setState({
+      title: event.target.value
+    });
+  }
+  onAuthorChange(event) {
+    this.setState({
+      author: event.target.value
+    });
+  }
+
+
 
   onTypeChange(event) {
     this.setState({
@@ -121,13 +148,25 @@ class SummarizePage extends Component {
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
           <form onSubmit={this.formSubmit}>
           <Content>
+          <Title>Input Text Title</Title>
+          <TextComponent title="요약문 제목을 입력하세요!" />
+          <TextComponent title="" />
+          <Title>Input Text Author</Title>
+          <TextComponent title="요약문의 저자 또는 출처를 입력하세요!" />
+          </Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <Content>
+          <SmallInput type="text" placeholder="Input your text here."  onChange={this.onTitleChange} ></SmallInput>
+          <SmallInput type="text" placeholder="Input your text here."  onChange={this.onAuthorChange} ></SmallInput></Content>
+          <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
+          <Content>
             <Title>Summarize Your Text</Title>
             <TextComponent title="요약하고싶은 텍스트를 입력하세요!" />
             <TextComponent title="" /> <TextComponent title="" /> <TextComponent title="" />
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
           <Content>
-          <Input placeholder="Input your text here."  onChange={this.onTextChange} ></Input></Content>
+          <Input type="text" placeholder="Input your text here."  onChange={this.onTextChange} ></Input></Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <Content>
           <Title>Select Text Type</Title>
