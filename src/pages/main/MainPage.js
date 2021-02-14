@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import BlankTop from '../../components/BlankTop'
-import Button from '../../components/Button'
 import TextComponent from '../../components/TextComponent'
 import Logo from '../../assets/logo.png'
 import Picture from '../../assets/main.jpg'
