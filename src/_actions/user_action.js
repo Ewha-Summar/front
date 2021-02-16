@@ -24,10 +24,11 @@ export const registerUser=(dataToSubmit)=>{
 }
 
 export const registerSummary=(dataToSubmit)=>{
-   
-    const request = axios.post(`${USER_SERVER}/summary`,dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/summary`,dataToSubmit,{
+        headers: {
+          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+        }})
     .then(response => response.data)
-
     return{
         type: REGISTER_SUMMARY,
         payload: request
@@ -76,6 +77,8 @@ export const changePassword=(dataToSubmit)=>{
         payload: request
     }
 }
+
+
 
 export const deleteTest=(id)=>{
     const request = axios.delete(`http://3.35.187.65:3000/test/${id}`, {

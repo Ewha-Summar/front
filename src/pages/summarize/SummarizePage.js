@@ -7,6 +7,7 @@ import TextComponent from "../../components/TextComponent";
 import {Radio} from 'antd';
 import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer";
+import { registerSummary } from "../../_actions/user_action";
 
 
 
@@ -153,7 +154,12 @@ function SummarizePage({props}) {
 
   const formSubmit= async evt =>  {
     evt.preventDefault();
-    console.log(myState);
+    try{ 
+      await registerSummary(myState);
+      console.log(myState)
+    }catch(e){
+      console.log(e);
+    }
   }
 
 

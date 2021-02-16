@@ -5,7 +5,7 @@ import Button from "../../components/Button"
 const Wrapper = styled.div`
 margin-top:100px;
   width:700px;
-  height:100px;
+  height:250px;
   display:flex;
   border: 1px solid #10375C;
   border-radius:10px;
@@ -43,7 +43,7 @@ margin-top:10px;
 margin-left:80px;
     font-family: Lora;
     color:#000000;
-    width:350px;
+    width:500px;
     line-height: 20px;
     font-size: 14px;
 `
@@ -59,10 +59,12 @@ const CardComponent =() =>{
         <Wrapper>
             <Circle /> 
             <Row>
-            <Title>Summary Title</Title></Row>
+            <Title>Book Title</Title></Row>
             <Row>
-            <Content> Make the appearance of a mobile application that has quality and increases user convenience</Content>
-            <Button margin={'10'} color={'#10375C'} weight={'bold'} >Read More >> </Button>
+            <Content> Make the appearance of a mobile application that has quality and increases user convenienceMake the appearance of a mobile application that has quality and increases user convenienceMake the appearance of a mobile application that has quality and increases user convenience
+            Make the appearance of a mobile application that has quality and increases user convenienceMake the appearance of a mobile application that has quality and increases user convenienceMake the appearance of a mobile application that has quality and increases user convenience
+            </Content>
+            
             </Row>
         </Wrapper>
     );
