@@ -51,7 +51,85 @@ const PinkTitle = styled.div`
     font-size: 40px;
 `
 
-const MyPage = (match) => {
+function MyPage(match){
+
+  let summaryData = {
+    "user_id": "사용자",
+    "summary_result": [
+    {
+        "summary_id" : 1,
+        "summary_title" : "요약1 제목",
+        "content" : "요약1 내용",
+        "book_title" : "책1 제목",
+        "book_author" : "책1 저자"
+    },
+    {
+        "summary_id" : 2,
+        "summary_title" : "요약2 제목",
+        "content" : "요약2 내용",
+        "book_title" : "책2 제목",
+        "book_author" : "책2 저자"
+    },
+    {
+      "summary_id" : 3,
+      "summary_title" : "요약2 제목",
+      "content" : "요약2 내용",
+      "book_title" : "책2 제목",
+      "book_author" : "책2 저자"
+  },
+  {
+    "summary_id" : 4,
+    "summary_title" : "요약2 제목",
+    "content" : "요약2 내용",
+    "book_title" : "책2 제목",
+    "book_author" : "책2 저자"
+},
+{
+  "summary_id" : 5,
+  "summary_title" : "요약2 제목",
+  "content" : "요약2 내용",
+  "book_title" : "책2 제목",
+  "book_author" : "책2 저자"
+},
+{
+  "summary_id" : 6,
+  "summary_title" : "요약2 제목",
+  "content" : "요약2 내용",
+  "book_title" : "책2 제목",
+  "book_author" : "책2 저자"
+},
+{
+  "summary_id" : 7,
+  "summary_title" : "요약2 제목",
+  "content" : "요약2 내용",
+  "book_title" : "책2 제목",
+  "book_author" : "책2 저자"
+},
+{
+  "summary_id" : 8,
+  "summary_title" : "요약2 제목",
+  "content" : "요약2 내용",
+  "book_title" : "책2 제목",
+  "book_author" : "책2 저자"
+},
+{
+  "summary_id" : 9,
+  "summary_title" : "요약2 제목",
+  "content" : "요약2 내용",
+  "book_title" : "책2 제목",
+  "book_author" : "책2 저자"
+}
+    ]
+}            
+
+
+
+
+ //let summaryData=axios.get(`${USER_SERVER}/userSummary`, {
+  //headers: {
+  //    jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+  //  }
+  // }) 
 
   return (
     <div>
@@ -66,30 +144,19 @@ const MyPage = (match) => {
             <Content>
             <Title>Recent Summaries</Title></Content>
             <Content>
+              {summaryData.summary_result.map((summary,i)=>
               <SummaryComponent 
-              bookTitle={"Summary Title"}
-              bookContent={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."}
-              bookAuthor={"Book Author"}
+              saveTitle={summary.summary_title}
+              bookTitle={summary.book_title}
+              bookContent={summary.content}
+              bookAuthor={summary.book_author}
               />
-              <SummaryComponent 
-              bookTitle={"Summary Title"}
-              bookContent={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."}
-              bookAuthor={"Book Author"}
-              />
-              <SummaryComponent 
-              bookTitle={"Summary Title"}
-              bookContent={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."}
-              bookAuthor={"Book Author"}
-              />
-              <SummaryComponent 
-              bookTitle={"Summary Title"}
-              bookContent={"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod."}
-              bookAuthor={"Book Author"}
-              />
+              )}
+            
             </Content>
             <BlankTop DesktopMargin='8' TabletMargin='3' MobileMargin='1' /> 
             <Content>
-            <PinkTitle>Recent Summaries</PinkTitle></Content>
+            <PinkTitle>Recent Test</PinkTitle></Content>
             <Content>
               <ScoreComponent
               testTitle={"Test Title"}

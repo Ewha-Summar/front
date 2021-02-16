@@ -89,16 +89,16 @@ function RegisterPage(props){
         setTimeout(() => {
 
           let dataToSubmit = {
-            email: values.email,
+            user_id: values.email,
             password: values.password,
-            nickname: values.nickname,
+            name: values.nickname,
           };
 
           dispatch(registerUser(dataToSubmit)).then(response => {
             if (response.payload.success) {
               props.history.push("/login");
             } else {
-              alert(response.payload.err.errmsg)
+              alert(response.payload.err.errmsg);
             }
           })
 

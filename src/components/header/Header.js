@@ -26,7 +26,6 @@ const Header=()=>{
           <Link to="/">
             <MyIcon></MyIcon> </Link>
             <Button font='15' onClick={() => history.push(`/summarize`)}> <p style={{fontWeight:'bold'}}>문서요약 </p></Button>
-            <Button font='15'onClick={() => history.push(`/oxpage`)}> <p style={{fontWeight:'bold'}}>o,x 문제</p> </Button>
             <Button font='15'onClick={() => history.push(`/blank`)}> <p style={{fontWeight:'bold'}}>빈칸문제 </p></Button>
             <Button font='15'onClick={() => history.push(`/search`)}><p style={{fontWeight:'bold'}}> 요약검색</p> </Button>
             <Button font='15'onClick={() => history.push(`/ai`)}><p style={{fontWeight:'bold'}}> AI 질의응답</p> </Button>

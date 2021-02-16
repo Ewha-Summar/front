@@ -58,6 +58,7 @@ const Title = styled.div`
 
 const MainPage = (match) => {
 
+  
   return (
     <>
     <Fix>

@@ -40,9 +40,13 @@ const Input = styled.input`
     outline:none;
 `
 
-const CardComponent = ({title}) => { 
+function CardComponent ({title}) { 
   const history=useHistory();
 
+  const onChangeText = async evt => {
+    const { value } = evt.target;
+    await window.localStorage.setItem('text',value);
+  }
     return(
     <>
     <Wrapper>
@@ -50,7 +54,7 @@ const CardComponent = ({title}) => {
         <BlankTop DesktopMargin='1' TabletMargin='1' MobileMargin='1' /> 
         <Title> 요약하고싶은 텍스트를 입력하세요. </Title>
         <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />      
-        <Input placeholder="Enter your Text."></Input>
+        <Input placeholder="Enter your Text." onChange={onChangeText}></Input>
         <Button font='12' color='white' background='#EF746F' width='100'onClick={() => history.push(`/summarize`)} > &nbsp;&nbsp; &nbsp;  &nbsp;&nbsp; &nbsp; Summarize Your Text &nbsp;&nbsp; &nbsp; &nbsp;&nbsp; &nbsp;  </Button>
         <BlankTop DesktopMargin='1' TabletMargin='1' MobileMargin='1' /> 
         </Column>

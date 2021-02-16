@@ -70,7 +70,7 @@ const GrayBox = styled.div`
   display:flex;
   z-index:1;
   outline:none;
-  background-color: #DFDFDF
+  background-color: #DFDFDF;
 `
 
 const QuestionNo = styled.div`
@@ -89,7 +89,7 @@ const Questiontext = styled.div`
   display: flex;
   outline:none;
   font-family:Roboto;
-  font-siz:16px;
+  font-size:16px;
   align-items: center;
   padding-right: 20px;
 `

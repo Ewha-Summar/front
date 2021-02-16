@@ -66,15 +66,15 @@ const Row=styled.div`
   margin-left:20px;
 `
 
-function SummaryComponent({bookTitle,bookContent,bookAuthor}){
+function SummaryComponent({bookTitle,bookContent,bookAuthor,saveTitle}){
     
     return(
         <Wrapper>
             <White> <Row>
-                <Title> {bookTitle} </Title></Row>
+                <Title> {saveTitle}</Title></Row>
                 <Row><Content>{bookContent}</Content></Row>
-                <Author>{bookAuthor}</Author>
-            </White>
+                <Author>{bookTitle}</Author><Author>{bookAuthor}</Author>
+            </White> 
         </Wrapper>
     );
 }

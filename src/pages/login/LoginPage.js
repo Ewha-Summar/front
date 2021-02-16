@@ -88,16 +88,18 @@ function LoginPage(props) {
         setTimeout(() => {
 
           let dataToSubmit = {
-            email: values.email,
+            user_id: values.email,
             password: values.password,
-            nickname: values.nickname,
+            name: values.nickname,
           };
 
           dispatch(loginUser(dataToSubmit)).then(response => {
             if (response.payload.success) {
               props.history.push("/");
+              window.localStorage.setItem('isAuth','true');
+              window.localStorage.setItem('jwt',response.payload.data.accessToken);
             } else {
-              alert(response.payload.err.errmsg)
+              alert(response.payload.err.errmsg);
             }
           })
 
@@ -133,7 +135,6 @@ function LoginPage(props) {
                     errors.email && touched.email ? 'text-input error' : 'text-input'
                   }
                 />
-                 
                   </Content>
 
                 </Form.Item>
@@ -153,7 +154,6 @@ function LoginPage(props) {
                           : "text-input"
                       }
                     />
-                   
                   </Content>
                 </Form.Item>
                 <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />

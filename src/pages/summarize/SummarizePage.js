@@ -1,11 +1,13 @@
 import { useEffect, useState,Component } from "react";
 import styled from "styled-components";
+import { useDispatch } from 'react-redux';
 import Header from "../../components/header/Header";
 import BlankTop from "../../components/BlankTop";
 import TextComponent from "../../components/TextComponent";
-import {Radio,Checkbox,Form } from 'antd';
+import {Radio} from 'antd';
 import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer";
+
 
 
 const Fix =styled.div`
@@ -86,78 +88,99 @@ const PinkBox = styled.div`
   outline:none;
 `
 
-class SummarizePage extends Component { 
-  constructor() {
-    super();
-    this.state = {
-      title:'',
-      author:'', 
-      text:'',
-      type:'',
-      count:''
-    };
-    this.onTextChange=this.onTextChange.bind(this);
-    this.onTypeChange = this.onTypeChange.bind(this);
-    this.onCountChange=this.onCountChange.bind(this);
-    this.onTitleChange=this.onTitleChange.bind(this);
-    this.onAuthorChange=this.onAuthorChange.bind(this);
-    this.formSubmit = this.formSubmit.bind(this);
+function SummarizePage({props}) { 
+  const [myState, setMyState] =useState({
+    book_title:'',
+    summary_title:'',
+    book_author:'',
+    count:3,
+    type:0,
+    content:'',
+  });
+    
+  
+  const dispatch = useDispatch();
+
+  const onSaveChange= async evt =>  {
+    const { name, value } = evt.target
+    try{
+      setMyState({
+        ...myState,
+        [name]:value
+      })
+    }catch(e){
+      console.error(e)
+    }
   }
 
-  onTextChange(event) {
-    this.setState({
-      text: event.target.value
-    });
+  const onTypeChange= async evt => {
+    if(evt.target.value==="0"){
+      setMyState({
+        ...myState,
+        type: 0
+      });
+    }
+    else{
+      setMyState({
+        ...myState,
+        type: 1
+      });
+    }
+    
   }
-  onTitleChange(event) {
-    this.setState({
-      title: event.target.value
-    });
-  }
-  onAuthorChange(event) {
-    this.setState({
-      author: event.target.value
-    });
+
+  const onCountChange= async evt => {
+    if(evt.target.value==="3"){
+      setMyState({
+        ...myState,
+        count: 3
+      });
+    }
+    if(evt.target.value==="5"){
+      setMyState({
+        ...myState,
+        count:5
+      });
+    }
+    if(evt.target.value==="7"){
+      setMyState({
+        ...myState,
+        count: 7
+      });
+    }
   }
 
 
-
-  onTypeChange(event) {
-    this.setState({
-      type: event.target.value
-    });
-  }
-
-  onCountChange(event) {
-    this.setState({
-      count: event.target.value
-    });
+  const formSubmit= async evt =>  {
+    evt.preventDefault();
+    console.log(myState);
   }
 
 
-  formSubmit(event) {
-    event.preventDefault();
-    console.log(this.state)
-  }
-  render(){
   return (<div>
     <Fix>
         <Wrapper>
           <Header />
           
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
-          <form onSubmit={this.formSubmit}>
+          <form onSubmit={formSubmit}>
           <Content>
           <Title>Input Text Title</Title>
+          <TextComponent title="저장 제목을 입력하세요!" /><TextComponent title="" /><TextComponent title="" /><TextComponent title="" /></Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <Content> <SmallInput type="text" placeholder="Input your text here." name="summary_title" onChange={onSaveChange} ></SmallInput></Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <Content>
+          <Title>Input Book Title</Title>
           <TextComponent title="요약문 제목을 입력하세요!" />
           <TextComponent title="" />
-          <Title>Input Text Author</Title>
+          <Title>Input Book Author</Title>
           <TextComponent title="요약문의 저자 또는 출처를 입력하세요!" />
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
           <Content>
-          <SmallInput type="text" placeholder="Input your text here."  onChange={this.onTitleChange} ></SmallInput>
-          <SmallInput type="text" placeholder="Input your text here."  onChange={this.onAuthorChange} ></SmallInput></Content>
+          <SmallInput type="text" placeholder="Input your text here."  name="book_title" onChange={onSaveChange} ></SmallInput>
+          <SmallInput type="text" placeholder="Input your text here."  name="book_author" onChange={onSaveChange} ></SmallInput></Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           
           <Content>
@@ -170,16 +193,16 @@ class SummarizePage extends Component {
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
           <Content>
             <Box>
-          <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'type'} onChange={this.onTypeChange}>
-                <Radio style={{margin:'30px', paddingRight:'50px'}}  checked={this.state.type=== "t"} value="t">문어체</Radio>
+          <Radio.Group style={{display:'flex', justifyContent:'center'}} name='type' onChange={onTypeChange}>
+                <Radio style={{margin:'30px', paddingRight:'50px'}}  value="0">문어체</Radio>
                 
-                <Radio   style={{margin:'30px'}} checked={this.state.type === "s"} value="s">구어체</Radio>
+                <Radio   style={{margin:'30px'}}  value="1">구어체</Radio>
               </Radio.Group> </Box>
               <Box>
-          <Radio.Group style={{display:'flex', justifyContent:'center'}} name={'count'} onChange={this.onCountChange}>
-                <Radio  style={{margin:'30px', paddingRight:'40px'}} checked={this.state.count === "3"} value="3">3문장</Radio>
-                <Radio  style={{margin:'30px', paddingRight:'40px'}}checked={this.state.count === "5"} value="5">5문장</Radio>
-                <Radio  style={{margin:'30px', paddingRight:'40px'}} checked={this.state.count === "7"} value="7">7문장</Radio>
+          <Radio.Group style={{display:'flex', justifyContent:'center'}} name='count' onChange={onCountChange}>
+                <Radio  style={{margin:'30px', paddingRight:'40px'}}  value="3">3문장</Radio>
+                <Radio  style={{margin:'30px', paddingRight:'40px'}} value="5">5문장</Radio>
+                <Radio  style={{margin:'30px', paddingRight:'40px'}}  value="7">7문장</Radio>
               </Radio.Group> </Box>  
       
           </Content>
@@ -191,11 +214,11 @@ class SummarizePage extends Component {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
           <Content>
-          <Input type="text" placeholder="Input your text here."  onChange={this.onTextChange} ></Input></Content>
+          <Input type="text" placeholder="Input your text here." name='content' onChange={onSaveChange} defaultValue={window.localStorage.getItem('text')}></Input></Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <Content>
           <TextComponent title="" />
-          <Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button></Content>
+          <Button  color={'white'} background={'#10375C'} type="submit" > &emsp; &emsp; Submit &emsp;&emsp; </Button></Content>
           </form>
           <Content>
             <PinkTitle>Summary Result</PinkTitle>
@@ -212,6 +235,6 @@ class SummarizePage extends Component {
     <Footer></Footer> </div>
   );
 }
-}
+
 
 export default SummarizePage;

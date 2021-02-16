@@ -58,7 +58,7 @@ const GrayBox = styled.div`
   display:flex;
   z-index:1;
   outline:none;
-  background-color: #DFDFDF
+  background-color: #DFDFDF;
 `
 
 const QuestionNo = styled.div`
@@ -95,7 +95,7 @@ const ConfidenceValue = styled.div`
   font-size:36px;
   font-family:Roboto;
   margin: 20px auto auto 0px;
-  color: #666666
+  color: #666666;
 `
 
 const Input = styled.input`

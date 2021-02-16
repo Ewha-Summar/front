@@ -1,10 +1,10 @@
 import axios from 'axios'
-import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST} from './type'
+import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY} from './type'
 import { USER_SERVER } from '../config';
 
 
 export const loginUser=(dataToSubmit)=>{
-    const request = axios.post(`${USER_SERVER}/signin`,dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/login`,dataToSubmit)
     .then(response => response.data)
     return{
         type: LOGIN_USER,
@@ -14,11 +14,22 @@ export const loginUser=(dataToSubmit)=>{
 
 export const registerUser=(dataToSubmit)=>{
    
-    const request = axios.post(`${USER_SERVER}/signup`,dataToSubmit)
+    const request = axios.post(`${USER_SERVER}/register`,dataToSubmit)
     .then(response => response.data)
 
     return{
         type: REGISTER_USER,
+        payload: request
+    }
+}
+
+export const registerSummary=(dataToSubmit)=>{
+   
+    const request = axios.post(`${USER_SERVER}/summary`,dataToSubmit)
+    .then(response => response.data)
+
+    return{
+        type: REGISTER_SUMMARY,
         payload: request
     }
 }
@@ -37,6 +48,8 @@ export const auth=()=>{
         payload: request
     }
 }
+
+
 
 export const changeName=(dataToSubmit)=>{
     const request = axios.put(`${USER_SERVER}/nickname`,dataToSubmit, {
