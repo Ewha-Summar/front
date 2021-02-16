@@ -1,4 +1,4 @@
-import { useEffect, useState,Component } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from 'react-redux';
 import Header from "../../components/header/Header";
@@ -7,7 +7,7 @@ import TextComponent from "../../components/TextComponent";
 import {Radio} from 'antd';
 import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer";
-import { registerSummary } from "../../_actions/user_action";
+import { registerSummary,getSummary } from "../../_actions/user_action";
 
 
 
@@ -154,13 +154,30 @@ function SummarizePage({props}) {
 
   const formSubmit= async evt =>  {
     evt.preventDefault();
-    try{ 
-      await registerSummary(myState);
-      console.log(myState)
-    }catch(e){
-      console.log(e);
-    }
+    console.log(myState);
+
+    dispatch(registerSummary(myState))
+            .then(response => {
+              if (response.payload.success) {
+                window.localStorage.setItem('summary_id',response.payload.data.summary_id);
+              } else {
+                console.log("error");
+              }
+            })
   }
+
+  const showSummary= async evt =>  {
+    evt.preventDefault();
+    dispatch(getSummary(Number(window.localStorage.getItem('summary_id'))))
+            .then(response => {
+              if (response.payload.success) {
+                console.log("success");
+              } else {
+                console.log("error");
+              }
+            })
+  }
+
 
 
   return (<div>
@@ -234,6 +251,9 @@ function SummarizePage({props}) {
           <BlankTop DesktopMargin='3' TabletMargin='1' MobileMargin='1' /> 
           <Content>
           <PinkBox> <TextComponent title="" /> </PinkBox></Content>
+          <Content>
+          <TextComponent title="" />
+          <Button  color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button></Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
           </Wrapper>
           

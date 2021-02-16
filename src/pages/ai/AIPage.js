@@ -5,6 +5,8 @@ import BlankTop from "../../components/BlankTop";
 import TextComponent from "../../components/TextComponent";
 import {Radio,Checkbox,Form, AutoComplete } from 'antd';
 import Footer from "../../components/footer/Footer_AI";
+import { useDispatch } from "react-redux";
+import { registerAI} from "../../_actions/user_action";
 
 const Fix =styled.div`
 min-height:100vh;
@@ -132,29 +134,37 @@ function Button({ children, border, color, background, font, width,...rest  }) {
     )
   }
 
-class AIPage extends Component {
-  constructor(){
-    super();
-    this.state = {
-      question:"",
-      answer:"Develop a website by finding a product identity that has value and branding to ******  a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company",
-      confidence:90,
-    };
-    this.onQuestionChange = this.onQuestionChange.bind(this);
-    this.formSubmit = this.formSubmit.bind(this);
-  }
+function AIPage() {
+ const [myState,setMyState]=useState({
+  question:"",
+  answer:"Develop a website by finding a product identity that has value and branding to ******  a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company",
+  confidence:90,
+ });
+ const dispatch=useDispatch();
 
-  onQuestionChange(event) {
-    this.setState({
-      question: event.target.value
+  
+
+ const onQuestionChange= async evt =>  {
+    setMyState({
+      ...myState,
+      question: evt.target.value
     });
   }
 
-  formSubmit(event) {
-    event.preventDefault();
-    console.log(this.state)
+  const formSubmit= async evt =>  {
+    evt.preventDefault();
+    console.log({"qustion":myState.question,"summary_id":myState.summary_id});
+    dispatch(registerAI({"qustion":myState.question,"summary_id":myState.summary_id}))
+    .then(response => {
+      if (response.payload.success) {
+        console.log("success");
+      } else {
+        console.log("error");
+      }
+    })
+
   }
-  render(){
+
     return (
     <div>
       <Fix>
@@ -172,13 +182,13 @@ class AIPage extends Component {
             <PinkBox></PinkBox>
           </Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
-          <form onSubmit={this.formSubmit}>
+          <form onSubmit={formSubmit}>
           <Content>
             <Title>AI Question</Title>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <Input placeholder =" Input your text here." value={this.state.question} onChange={this.onQuestionChange}/>
+            <Input placeholder =" Input your text here." value={myState.question} onChange={onQuestionChange}/>
             <Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button>
           </Content>
           </form>
@@ -187,10 +197,10 @@ class AIPage extends Component {
           <Content>
             <GrayBox>
               <QuestionNo>A</QuestionNo>
-              <Questiontext>{this.state.answer}</Questiontext>
+              <Questiontext>{myState.answer}</Questiontext>
             </GrayBox>
             <Confidence>Confidence</Confidence>
-            <ConfidenceValue>{this.state.confidence}%</ConfidenceValue>
+            <ConfidenceValue>{myState.confidence}%</ConfidenceValue>
           </Content>
         </Wrapper>
       </Fix>
@@ -198,7 +208,6 @@ class AIPage extends Component {
     </div>
     );
   }
-}
 
 
 

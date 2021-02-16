@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY} from './type'
+import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY,REGISTER_AI,GET_SUMMARY} from './type'
 import { USER_SERVER } from '../config';
 
 
@@ -35,6 +35,18 @@ export const registerSummary=(dataToSubmit)=>{
     }
 }
 
+export const registerAI=(dataToSubmit)=>{
+    const request = axios.post(`${USER_SERVER}/qna`,dataToSubmit,{
+        headers: {
+          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+        }})
+    .then(response => response.data)
+    return{
+        type: REGISTER_AI,
+        payload: request
+    }
+}
+
 
 
 export const auth=()=>{
@@ -46,6 +58,19 @@ export const auth=()=>{
     .then(response => response.data)
     return{
         type: AUTH_USER,
+        payload: request
+    }
+}
+
+export const getSummary=(summary_id)=>{
+    const request = axios.get(`${USER_SERVER}/summary/${summary_id}`, {
+        headers: {
+          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+        }
+       })
+    .then(response => response.data)
+    return{
+        type: GET_SUMMARY,
         payload: request
     }
 }
