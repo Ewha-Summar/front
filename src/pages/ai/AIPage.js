@@ -139,6 +139,7 @@ function AIPage() {
   question:"",
   answer:"Develop a website by finding a product identity that has value and branding to ******  a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company",
   confidence:90,
+  summary_id:Number(window.localStorage.getItem('summary_id'))
  });
  const dispatch=useDispatch();
 
