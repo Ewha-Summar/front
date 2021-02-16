@@ -1,4 +1,4 @@
-import { useEffect, useState,Component } from "react";
+import React, { useEffect, useState,Component } from "react";
 import styled from "styled-components";
 import Header from "../../components/header/Header";
 import BlankTop from "../../components/BlankTop";
@@ -109,26 +109,34 @@ const Input = styled.input`
 `
 
 class BlankPage extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
-      answer1:"",
-      answer2:"",
-      answer3:"",
-      answer4:"",
+      questions:[
+        {question_no:"1", question_text:"Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company", answer:""},
+        {question_no:"2", question_text:"Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company", answer:""},
+        {question_no:"3", question_text:"Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company", answer:""},
+        {question_no:"4", question_text:"Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company", answer:""}
+      ],
       summary_result:"문제를 풀고 난 후 내용을 볼 수 있습니다."
     };
     this.onAnswerChange = this.onAnswerChange.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
 
-  onAnswerChange(event) {
+  onAnswerChange(event){
+    const { questions } = this.state;
     const target = event.target;
     const name = target.name;
+    const value = target.value;
     this.setState({
-      [name]: event.target.value
+      questions: questions.map(
+        question => question.question_no === name
+        ? ({...question, answer:value})
+        : question
+      )
     });
-  }
+  };
 
   formSubmit(event) {
     event.preventDefault();
@@ -155,30 +163,22 @@ class BlankPage extends Component {
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <form onSubmit={this.formSubmit}>
           <Content>
-            <Title>O/X Quiz</Title>
+            <Title>Blank Quiz</Title>
             <TextComponent title="퀴즈를 풀어보세요!"/>
             <TextComponent title=""/> <TextComponent title=""/> <TextComponent title=""/>
           </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
-          <Content>
-            <GrayBox><QuestionNo>01</QuestionNo><Questiontext>Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer." name={'answer1'} value={this.state.answer1} onChange={this.onAnswerChange}></Input>
-          </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
-          <Content>
-            <GrayBox><QuestionNo>02</QuestionNo><Questiontext>Develop a website by finding a product identity that has value value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer." name={'answer2'} value={this.state.answer2} onChange={this.onAnswerChange}></Input>
-          </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
-          <Content>
-            <GrayBox><QuestionNo>03</QuestionNo><Questiontext>Develop a website by finding a product identity that has value value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer." name={'answer3'} value={this.state.answer3} onChange={this.onAnswerChange}></Input>
-          </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
-          <Content>
-            <GrayBox><QuestionNo>04</QuestionNo><Questiontext>Develop a website by finding a product identity that has value value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company</Questiontext></GrayBox>
-            <Input placeholder=" Input your answer." name={'answer4'} value={this.state.answer4} onChange={this.onAnswerChange}></Input>
-          </Content>
+          
+          {this.state.questions.map((question, i)=>{
+            return(
+            <div>
+            <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
+            <Content>
+              <GrayBox><QuestionNo>{i+1}</QuestionNo><Questiontext>{question.question_text}</Questiontext></GrayBox>
+              <Input placeholder=" Input your answer." name={question.question_no} value={question.answer} onChange={this.onAnswerChange}></Input>
+            </Content>
+            </div>
+            );
+          })}
           <Content>
             <TextComponent title="" />
             <Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button>
@@ -192,7 +192,5 @@ class BlankPage extends Component {
     );
   }
 }
-
-
 
 export default BlankPage;
