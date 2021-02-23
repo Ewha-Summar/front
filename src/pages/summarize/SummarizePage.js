@@ -95,8 +95,8 @@ function SummarizePage({props}) {
     summary_title:'',
     book_author:'',
     count:3,
-    type:0,
-    content:'',
+    input_type:0,
+    bf_summary:'',
     summary:''
   });
     
@@ -125,7 +125,7 @@ function SummarizePage({props}) {
     else{
       setMyState({
         ...myState,
-        type: 1
+        input_type: 1
       });
     }
     
@@ -173,13 +173,12 @@ function SummarizePage({props}) {
             .then(response => {
               if (response.payload.success) {
                 console.log("success");
+                console.log(response.payload.data.content);
                 setMyState({
-                  status: 'resolved',
-                  member: {
-                    ...myState,
-                    summary: response.payload.data.content
-                  }
-              });
+                  ...myState,
+                  summary: response.payload.data.content
+                });
+                
               } else {
                 console.log("error");
               }
@@ -224,7 +223,7 @@ function SummarizePage({props}) {
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
           <Content>
             <Box>
-          <Radio.Group style={{display:'flex', justifyContent:'center'}} name='type' onChange={onTypeChange}>
+          <Radio.Group style={{display:'flex', justifyContent:'center'}} name='input_type' onChange={onTypeChange}>
                 <Radio style={{margin:'30px', paddingRight:'50px'}}  value="0">문어체</Radio>
                 
                 <Radio   style={{margin:'30px'}}  value="1">구어체</Radio>
@@ -245,7 +244,7 @@ function SummarizePage({props}) {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
           <Content>
-          <Input type="text" placeholder="Input your text here." name='content' onChange={onSaveChange} defaultValue={window.localStorage.getItem('text')}></Input></Content>
+          <Input type="text" placeholder="Input your text here." name='text' onChange={onSaveChange} defaultValue={window.localStorage.getItem('text')}></Input></Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <Content>
           <TextComponent title="" />

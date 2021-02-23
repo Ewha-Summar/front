@@ -62,8 +62,8 @@ export const auth=()=>{
     }
 }
 
-export const getSummary=(summary_id)=>{
-    const request = axios.get(`${USER_SERVER}/summary/${summary_id}`, {
+export const getSummary=(summary_id)=>{ 
+    const request = axios.get(`${USER_SERVER}/summary?summary_id=${summary_id}`, {
         headers: {
           jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
         }
