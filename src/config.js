@@ -1,2 +1,2 @@
 //서버 라우터
-export const USER_SERVER = 'http://172.31.27.145:3000';
+export const USER_SERVER = 'http://52.14.212.121:5000/api';

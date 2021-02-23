@@ -63,13 +63,9 @@ function LoginPage(props) {
            <Formik
       initialValues={{
         email: '',
-        nickname: '',
-        password: '',
-        confirmPassword: ''
+        password: ''
       }}
       validationSchema={Yup.object().shape({
-        nickname: Yup.string()
-          .required('닉네임을 입력해야 합니다.'),
         email: Yup.string()
           .email('이메일형식이 올바르지 않습니다.')
           .required('이메일을 입력해야 합니다.'),
@@ -80,17 +76,14 @@ function LoginPage(props) {
             /^(?=.*[A-z])(?=.*[0-9])/
         ,'숫자와 영어를 혼합하여야 합니다.')
           .required('패스워드를 입력해야 합니다.'),
-        confirmPassword: Yup.string()
-          .oneOf([Yup.ref('password'), null], '패스워드가 일치하지 않습니다.')
-          .required('패스워드확인을 입력해야 합니다.')
+
       })}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
 
           let dataToSubmit = {
             user_id: values.email,
-            password: values.password,
-            name: values.nickname,
+            password: values.password
           };
 
           dispatch(loginUser(dataToSubmit)).then(response => {
@@ -99,7 +92,6 @@ function LoginPage(props) {
               window.localStorage.setItem('isAuth','true');
               window.localStorage.setItem('jwt',response.payload.data.accessToken);
             } else {
-              alert(response.payload.err.errmsg);
             }
           })
 
