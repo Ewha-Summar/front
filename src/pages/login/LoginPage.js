@@ -88,9 +88,10 @@ function LoginPage(props) {
 
           dispatch(loginUser(dataToSubmit)).then(response => {
             if (response.payload.success) {
-              props.history.push("/");
               window.localStorage.setItem('isAuth','true');
-              window.localStorage.setItem('jwt',response.payload.data.accessToken);
+              window.localStorage.setItem('jwt',response.payload.data.access_token);
+              window.localStorage.setItem('user_id',response.payload.data.user_id);
+              props.history.push("/");
             } else {
             }
           })

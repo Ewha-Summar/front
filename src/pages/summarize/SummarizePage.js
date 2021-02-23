@@ -97,6 +97,7 @@ function SummarizePage({props}) {
     count:3,
     type:0,
     content:'',
+    summary:''
   });
     
   
@@ -172,6 +173,13 @@ function SummarizePage({props}) {
             .then(response => {
               if (response.payload.success) {
                 console.log("success");
+                setMyState({
+                  status: 'resolved',
+                  member: {
+                    ...myState,
+                    summary: response.payload.data.content
+                  }
+              });
               } else {
                 console.log("error");
               }
@@ -250,7 +258,7 @@ function SummarizePage({props}) {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='1' MobileMargin='1' /> 
           <Content>
-          <PinkBox> <TextComponent title="" /> </PinkBox></Content>
+          <PinkBox> <TextComponent title={myState.summary} /> </PinkBox></Content>
           <Content>
           <TextComponent title="" />
           <Button  color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button></Content>
