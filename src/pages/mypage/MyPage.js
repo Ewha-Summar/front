@@ -80,7 +80,7 @@ console.log(myState);
             <Content>
             <Title>Recent Summaries</Title></Content>
             <Content>
-              {myState.member?.summary_result.map((summary,i)=>
+              {myState.member?.summary_result?.map((summary,i)=>
               <SummaryComponent 
               saveTitle={summary.summary_title}
               bookTitle={summary.book_title}

@@ -5,7 +5,7 @@ import Button from "../../components/Button"
 const Wrapper = styled.div`
 margin-top:100px;
   width:700px;
-  height:250px;
+  height:750px;
   display:flex;
   border: 1px solid #10375C;
   border-radius:10px;
@@ -31,11 +31,18 @@ margin-top:10px;
 margin-left:80px;
     font-family: Lora;
     color:#10375C;
-    width:150px;
+    width:300px;
     line-height: 10px;
     font-weight:bold;
     font-size: 20px;
     margin-bottom:10px;
+`
+const Author = styled.div`
+display: flex;
+  flex-direction: row;
+  justify-content:flex-end;
+  margin-right:10px;
+  font-weight:bold;
 `
 
 const Content = styled.div`
@@ -53,19 +60,23 @@ const Row=styled.div`
   justify-content: space-between;
 `
 
-const CardComponent =() =>{
+const CardComponent =({bookTitle,content,bookAuthor,user_id}) =>{
     
     return(
         <Wrapper>
             <Circle /> 
             <Row>
-            <Title>Book Title</Title></Row>
+            <Title>{bookTitle}</Title></Row>
+           
+            <Author>Author:{bookAuthor}</Author>
+            
+            
             <Row>
-            <Content> Make the appearance of a mobile application that has quality and increases user convenienceMake the appearance of a mobile application that has quality and increases user convenienceMake the appearance of a mobile application that has quality and increases user convenience
-            Make the appearance of a mobile application that has quality and increases user convenienceMake the appearance of a mobile application that has quality and increases user convenienceMake the appearance of a mobile application that has quality and increases user convenience
+            <Content> {content}
             </Content>
             
             </Row>
+            <Author>by {user_id} </Author>
         </Wrapper>
     );
 }
