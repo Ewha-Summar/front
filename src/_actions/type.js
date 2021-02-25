@@ -8,3 +8,4 @@ export const DELETE_TEST="delete_test";
 export const REGISTER_SUMMARY="register_user";
 export const REGISTER_AI="register_ai";
 export const GET_SUMMARY="get_summary";
+export const GET_MY_SUMMARY="get_my_summary"

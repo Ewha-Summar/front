@@ -88,6 +88,12 @@ const PinkBox = styled.div`
   z-index:1;
   outline:none;
 `
+const Summary = styled.div`
+    font-family: NanumGothic;
+    color:#6A6A6A;
+    font-size: 15px;
+    width:200rem;
+`
 
 function SummarizePage({props}) { 
   const [myState, setMyState] =useState({
@@ -257,7 +263,7 @@ function SummarizePage({props}) {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='1' MobileMargin='1' /> 
           <Content>
-          <PinkBox> <TextComponent title={myState.summary} /> </PinkBox></Content>
+          <PinkBox> <TextComponent width={100} title={myState.summary} /> </PinkBox></Content>
           <Content>
           <TextComponent title="" />
           <Button  color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button></Content>

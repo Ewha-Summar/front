@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-
+import {getMySummary} from "../../_actions/user_action"
+import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import Header from "../../components/header/Header"
 import CardComponent from "./CardComponent"
@@ -9,6 +10,7 @@ import Picture2 from '../../assets/mypage2.jpg'
 import BlankTop from "../../components/BlankTop"
 import ScoreComponent from "./ScoreComponent"
 import MyPageFooter from "../../components/footer/MyPageFooter"
+import axios from "axios"
 
 const Fix =styled.div`
 min-height:100vh;
@@ -53,83 +55,17 @@ const PinkTitle = styled.div`
 
 function MyPage(match){
 
-  let summaryData = {
-    "user_id": "사용자",
-    "summary_result": [
-    {
-        "summary_id" : 1,
-        "summary_title" : "요약1 제목",
-        "content" : "요약1 내용",
-        "book_title" : "책1 제목",
-        "book_author" : "책1 저자"
-    },
-    {
-        "summary_id" : 2,
-        "summary_title" : "요약2 제목",
-        "content" : "요약2 내용",
-        "book_title" : "책2 제목",
-        "book_author" : "책2 저자"
-    },
-    {
-      "summary_id" : 3,
-      "summary_title" : "요약2 제목",
-      "content" : "요약2 내용",
-      "book_title" : "책2 제목",
-      "book_author" : "책2 저자"
-  },
-  {
-    "summary_id" : 4,
-    "summary_title" : "요약2 제목",
-    "content" : "요약2 내용",
-    "book_title" : "책2 제목",
-    "book_author" : "책2 저자"
-},
-{
-  "summary_id" : 5,
-  "summary_title" : "요약2 제목",
-  "content" : "요약2 내용",
-  "book_title" : "책2 제목",
-  "book_author" : "책2 저자"
-},
-{
-  "summary_id" : 6,
-  "summary_title" : "요약2 제목",
-  "content" : "요약2 내용",
-  "book_title" : "책2 제목",
-  "book_author" : "책2 저자"
-},
-{
-  "summary_id" : 7,
-  "summary_title" : "요약2 제목",
-  "content" : "요약2 내용",
-  "book_title" : "책2 제목",
-  "book_author" : "책2 저자"
-},
-{
-  "summary_id" : 8,
-  "summary_title" : "요약2 제목",
-  "content" : "요약2 내용",
-  "book_title" : "책2 제목",
-  "book_author" : "책2 저자"
-},
-{
-  "summary_id" : 9,
-  "summary_title" : "요약2 제목",
-  "content" : "요약2 내용",
-  "book_title" : "책2 제목",
-  "book_author" : "책2 저자"
-}
-    ]
-}            
-
-
-
-
- //let summaryData=axios.get(`${USER_SERVER}/userSummary`, {
-  //headers: {
-  //    jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
-  //  }
-  // }) 
+const [myState, setMyState] =useState({status: 'idle', member:null});
+const dispatch = useDispatch();
+useEffect(()=>{
+  dispatch(getMySummary()).then(response => {
+    setMyState({status:'pending'});
+    const data=response.payload.data;
+    console.log(data);
+    setTimeout(() => setMyState({ status: 'resolved' , member:data}), 600);
+     });
+},[]);
+console.log(myState);
 
   return (
     <div>
@@ -137,14 +73,14 @@ function MyPage(match){
         <Wrapper>
             <Header> </Header>
             <Content>
-            <CardComponent nickname={"정아연"} email={"ribbon0529@naver.com"} />
+            <CardComponent nickname={window.localStorage.getItem('name')} email={window.localStorage.getItem('user_id')} />
             <Picture><img src={Picture2} /><img src={Picture1} /></Picture>
             </Content>
             <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
             <Content>
             <Title>Recent Summaries</Title></Content>
             <Content>
-              {summaryData.summary_result.map((summary,i)=>
+              {myState.member?.summary_result.map((summary,i)=>
               <SummaryComponent 
               saveTitle={summary.summary_title}
               bookTitle={summary.book_title}

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY,REGISTER_AI,GET_SUMMARY} from './type'
+import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY,REGISTER_AI,GET_SUMMARY,GET_MY_SUMMARY} from './type'
 import { USER_SERVER } from '../config';
 
 
@@ -75,6 +75,18 @@ export const getSummary=(summary_id)=>{
     }
 }
 
+export const getMySummary=()=>{ 
+    const request = axios.get(`${USER_SERVER}/userSummary`, {
+        headers: {
+          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+        }
+       })
+    .then(response => response.data)
+    return{
+        type: GET_MY_SUMMARY,
+        payload: request
+    }
+}
 
 
 export const changeName=(dataToSubmit)=>{
