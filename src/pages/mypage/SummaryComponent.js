@@ -4,8 +4,8 @@ import Button from "../../components/Button"
 
 const Wrapper = styled.div`
 margin-top:50px;
-  width:400px;
-  height:970px;
+  width:800px;
+  height:570px;
   display:flex;
   background: rgba(16, 55, 92, 0.7);
   border-radius:10px;
@@ -16,8 +16,8 @@ margin-top:50px;
 const White = styled.div`
 margin-top:100px;
 margin-left:20px;
-  width:360px;
-  height:850px;
+  width:760px;
+  height:450px;
   display:flex;
   background: white;
   border-radius:10px;
@@ -73,7 +73,7 @@ function SummaryComponent({bookTitle,bookContent,bookAuthor,saveTitle}){
             <White> <Row>
                 <Title> {saveTitle}</Title></Row>
                 <Row><Content>{bookContent}</Content></Row>
-                <Author>{bookTitle}</Author><Author>{bookAuthor}</Author>
+                <Author>문서 제목: {bookTitle}</Author><Author>문서 저자: {bookAuthor}</Author>
             </White> 
         </Wrapper>
     );

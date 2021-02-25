@@ -50,7 +50,7 @@ margin-top:10px;
 margin-left:80px;
     font-family: Lora;
     color:#000000;
-    width:500px;
+    width:600px;
     line-height: 20px;
     font-size: 14px;
 `
