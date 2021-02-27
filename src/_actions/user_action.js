@@ -26,7 +26,7 @@ export const registerUser=(dataToSubmit)=>{
 export const registerSummary=(dataToSubmit)=>{
     const request = axios.post(`${USER_SERVER}/summary`,dataToSubmit,{
         headers: {
-          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+            authorization: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
         }})
     .then(response => response.data)
     return{
@@ -38,7 +38,7 @@ export const registerSummary=(dataToSubmit)=>{
 export const registerAI=(dataToSubmit)=>{
     const request = axios.post(`${USER_SERVER}/qna`,dataToSubmit,{
         headers: {
-          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+            authorization: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
         }})
     .then(response => response.data)
     return{
@@ -52,7 +52,7 @@ export const registerAI=(dataToSubmit)=>{
 export const auth=()=>{
     const request = axios.get(`${USER_SERVER}/mypage`, {
         headers: {
-          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+            authorization: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
         }
        })
     .then(response => response.data)
@@ -65,7 +65,7 @@ export const auth=()=>{
 export const getSummary=(summary_id)=>{ 
     const request = axios.get(`${USER_SERVER}/summary?summary_id=${summary_id}`, {
         headers: {
-          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+            authorization: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
         }
        })
     .then(response => response.data)
@@ -79,7 +79,7 @@ export const getSummary=(summary_id)=>{
 export const getMySummary=()=>{ 
     const request = axios.get(`${USER_SERVER}/userSummary`, {
         headers: {
-          jwt: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+            authorization: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
         }
        })
     .then(response => response.data)
