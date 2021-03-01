@@ -1,4 +1,4 @@
-import React, { useEffect, useState,Component } from "react";
+import React, { useEffect, useState, setState } from "react";
 import styled from "styled-components";
 import Header from "../../components/header/Header";
 import BlankTop from "../../components/BlankTop";
@@ -6,6 +6,8 @@ import TextComponent from "../../components/TextComponent";
 import {Radio,Checkbox,Form } from 'antd';
 import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer_question";
+import {useDispatch} from 'react-redux';
+import {getQuiz, sendAnswer} from "../../_actions/user_action";
 
 const Fix =styled.div`
 min-height:100vh;
@@ -108,42 +110,89 @@ const Input = styled.input`
     margin: auto;
 `
 
-class BlankPage extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      questions:[
-        {question_no:"1", question_text:"Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company", answer:""},
-        {question_no:"2", question_text:"Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company", answer:""},
-        {question_no:"3", question_text:"Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company", answer:""},
-        {question_no:"4", question_text:"Develop a website by finding a product identity that has value and branding to become a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company", answer:""}
-      ],
-      summary_result:"문제를 풀고 난 후 내용을 볼 수 있습니다."
-    };
-    this.onAnswerChange = this.onAnswerChange.bind(this);
-    this.formSubmit = this.formSubmit.bind(this);
-  }
+function BlankPage({}){
+  const [questions, setQuestions] = useState({
+    isSet: false,
+    quiz:[],
+  })
 
-  onAnswerChange(event){
-    const { questions } = this.state;
-    const target = event.target;
-    const name = target.name;
-    const value = target.value;
-    this.setState({
-      questions: questions.map(
-        question => question.question_no === name
-        ? ({...question, answer:value})
-        : question
+  const [answers, setAnswers] = useState({
+    summary_id:Number(window.localStorage.getItem("summary_id")),
+    quiz_list: [],
+    new_list:[]
+  })
+  const [post,setPost]=useState('');
+  const [reply,setReply]=useState({
+    summary_id:Number(window.localStorage.getItem("summary_id")),
+  quiz_list: []
+    
+  });
+
+  const dispatch = useDispatch();
+
+  const getQuizList = async response => {
+    setQuestions({
+      isSet: true,
+      quiz: response.payload.data.quiz_list.map(question =>
+        ({...question, my_answer:''})
       )
     });
-  };
-
-  formSubmit(event) {
-    event.preventDefault();
-    console.log(this.state)
+    setAnswers({
+      ...answers,
+      quiz_list: response.payload.data.quiz_list.map(question =>
+        ({quiz_id:question.quiz_id, my_answer:''})
+    )
+    });
   }
 
-  render(){
+  useEffect (() => {
+    window.localStorage.setItem("summary_id",2)
+      dispatch(getQuiz(0, Number(window.localStorage.getItem("summary_id"))))
+      .then (response => {
+        if (response.payload.success){ 
+          if (!questions.isSet){
+            getQuizList(response);
+          }
+          console.log(questions);
+        }
+        else{
+          console.log("error");
+        }
+      })
+  },[questions, answers]);
+
+  const onAnswerChange = async (event) => {
+    const { name, value } = event.target;
+
+        setPost(
+          
+          {...post,[name]:{my_answer:value,quiz_id:Number(name)}})
+
+  };
+
+  const formSubmit= async evt =>  {
+    evt.preventDefault();
+    answers.quiz_list.map((question) => {
+      Number(question.quiz_id)===Number(post[question.quiz_id].quiz_id)?
+      setReply({
+        quiz_list:reply.quiz_list.push(post[question.quiz_id])
+    })
+    :console.log("error");
+  });
+    console.log("answer",answers)
+    console.log("questions",questions)
+    console.log("reply",reply)
+    console.log("post",post)
+    dispatch(sendAnswer(reply))
+            .then(response => {
+              if (response.payload.success) {
+                console.log("sucess");
+              } else {
+                console.log("error");
+              }
+            })
+  }
+
     return (
     <div>
       <Fix>
@@ -158,23 +207,22 @@ class BlankPage extends Component {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <PinkBox><BlindText>{this.state.summary_result}</BlindText></PinkBox>
+            <PinkBox><BlindText>{}</BlindText></PinkBox>
           </Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
-          <form onSubmit={this.formSubmit}>
+          <form onSubmit={formSubmit}>
           <Content>
             <Title>Blank Quiz</Title>
             <TextComponent title="퀴즈를 풀어보세요!"/>
             <TextComponent title=""/> <TextComponent title=""/> <TextComponent title=""/>
           </Content>
-          
-          {this.state.questions.map((question, i)=>{
+          {questions.quiz.map((quiz, i)=>{
             return(
             <div>
             <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
             <Content>
-              <GrayBox><QuestionNo>{i+1}</QuestionNo><Questiontext>{question.question_text}</Questiontext></GrayBox>
-              <Input placeholder=" Input your answer." name={question.question_no} value={question.answer} onChange={this.onAnswerChange}></Input>
+              <GrayBox><QuestionNo>{i+1}</QuestionNo><Questiontext>{quiz.content}</Questiontext></GrayBox>
+              <Input placeholder=" Input your answer." key={quiz.quiz_id} name={quiz.quiz_id} value={questions.quiz.quiz_id} onChange={onAnswerChange}></Input>
             </Content>
             </div>
             );
@@ -190,7 +238,7 @@ class BlankPage extends Component {
       <Footer></Footer>
     </div>
     );
-  }
-}
+ }
+
 
 export default BlankPage;

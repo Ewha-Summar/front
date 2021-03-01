@@ -1,5 +1,6 @@
 import axios from 'axios'
-import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY,REGISTER_AI,GET_SUMMARY,GET_MY_SUMMARY,GET_ALL_SUMMARY} from './type'
+import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY,
+    REGISTER_AI,GET_SUMMARY,GET_MY_SUMMARY,GET_ALL_SUMMARY,GET_QUIZ,SEND_ANSWER} from './type'
 import { USER_SERVER } from '../config';
 
 
@@ -31,6 +32,31 @@ export const registerSummary=(dataToSubmit)=>{
     .then(response => response.data)
     return{
         type: REGISTER_SUMMARY,
+        payload: request
+    }
+}
+export const getQuiz=(quiz_type, summary_id) => {
+    const request = axios.get(`${USER_SERVER}/quiz?quiz_type=${quiz_type}&summary_id=${summary_id}`,{
+        headers: {
+            authorization: window.localStorage.getItem('jwt')
+        }
+    })
+    .then(response => response.data)
+    return{
+        type: GET_QUIZ,
+        payload: request
+    }
+}
+
+export const sendAnswer=(dataToSubmit)=>{
+    const request = axios.post(`${USER_SERVER}/scoring`,dataToSubmit, {
+        headers:{
+            authorization: window.localStorage.getItem('jwt')
+        }
+    })
+    .then(response => response.data)
+    return{
+        type:SEND_ANSWER,
         payload: request
     }
 }
