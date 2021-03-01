@@ -61,11 +61,12 @@ export const sendAnswer=(dataToSubmit)=>{
     }
 }
 
-export const registerAI=(dataToSubmit)=>{
-    const request = axios.post(`${USER_SERVER}/qna`,dataToSubmit,{
+export const registerAI=(summary_id,question)=>{
+    const request = axios.get(`${USER_SERVER}/qna?summary_id=${summary_id}&question="${question}"`,{
         headers: {
             authorization: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
-        }})
+        }
+       })
     .then(response => response.data)
     return{
         type: REGISTER_AI,

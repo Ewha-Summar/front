@@ -146,7 +146,6 @@ function BlankPage({}){
   }
 
   useEffect (() => {
-    window.localStorage.setItem("summary_id",2)
       dispatch(getQuiz(0, Number(window.localStorage.getItem("summary_id"))))
       .then (response => {
         if (response.payload.success){ 

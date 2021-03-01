@@ -3,7 +3,6 @@ import styled from "styled-components";
 import Header from "../../components/header/Header";
 import BlankTop from "../../components/BlankTop";
 import TextComponent from "../../components/TextComponent";
-import {Radio,Checkbox,Form, AutoComplete } from 'antd';
 import Footer from "../../components/footer/Footer_AI";
 import { useDispatch } from "react-redux";
 import { registerAI} from "../../_actions/user_action";
@@ -137,8 +136,8 @@ function Button({ children, border, color, background, font, width,...rest  }) {
 function AIPage() {
  const [myState,setMyState]=useState({
   question:"",
-  answer:"Develop a website by finding a product identity that has value and branding to ******  a characteristic of a company. We will also facilitate the business marketing of these products with our SEO experts so that they become a ready-to-use website and help sell a product from the company",
-  confidence:90,
+  answer:"",
+  confidence:0,
   summary_id:Number(window.localStorage.getItem('summary_id'))
  });
  const dispatch=useDispatch();
@@ -154,13 +153,21 @@ function AIPage() {
 
   const formSubmit= async evt =>  {
     evt.preventDefault();
-    console.log({"qustion":myState.question,"summary_id":myState.summary_id});
-    dispatch(registerAI({"qustion":myState.question,"summary_id":myState.summary_id}))
+    console.log({"question":myState.question,"summary_id":myState.summary_id});
+    console.log(window.localStorage.getItem('jwt'));
+    dispatch(registerAI(myState.summary_id,myState.question))
     .then(response => {
       if (response.payload.success) {
-        console.log("success");
+        console.log(response.payload.data);
+        setMyState({
+          ...myState,
+          answer:response.payload.data.answer,
+          confidence:response.payload.data.confidence
+        })
+        
       } else {
         console.log("error");
+        
       }
     })
 
