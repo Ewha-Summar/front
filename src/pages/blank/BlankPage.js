@@ -7,7 +7,7 @@ import {Radio,Checkbox,Form } from 'antd';
 import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer_question";
 import {useDispatch} from 'react-redux';
-import {getQuiz, sendAnswer} from "../../_actions/user_action";
+import {getQuiz, sendAnswer,getSummary} from "../../_actions/user_action";
 
 const Fix =styled.div`
 min-height:100vh;
@@ -115,6 +115,9 @@ function BlankPage({}){
     isSet: false,
     quiz:[],
   })
+  const [myState, setMyState] =useState({
+    summary:''
+  });
 
   const [answers, setAnswers] = useState({
     summary_id:Number(window.localStorage.getItem("summary_id")),
@@ -129,6 +132,23 @@ function BlankPage({}){
   });
 
   const dispatch = useDispatch();
+  const showSummary= async evt =>  {
+    evt.preventDefault();
+    dispatch(getSummary(Number(window.localStorage.getItem('summary_id'))))
+            .then(response => {
+              if (response.payload.success) {
+                console.log("success");
+                console.log(response.payload.data.content);
+                setMyState({
+                  ...myState,
+                  summary: response.payload.data.content
+                });
+                
+              } else {
+                console.log("error");
+              }
+            })
+  }
 
   const getQuizList = async response => {
     setQuestions({
@@ -201,13 +221,16 @@ function BlankPage({}){
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
             <PinkTitle>Summary Result</PinkTitle>
-            <TextComponent title="요약된 결과를 확인하세요!"/>
+            <TextComponent title="버튼을 눌러 힌트를 확인하세요!"/>
             <TextComponent title="" />  <TextComponent title="" />  <TextComponent title="" /> 
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <PinkBox><BlindText>{}</BlindText></PinkBox>
+            <PinkBox><BlindText>{myState.summary}</BlindText></PinkBox>
           </Content>
+          <Content>
+          <TextComponent title="" />
+          <Button  color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the Hint &emsp;&emsp; </Button></Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
           <form onSubmit={formSubmit}>
           <Content>

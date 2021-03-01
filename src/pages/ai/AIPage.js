@@ -5,7 +5,8 @@ import BlankTop from "../../components/BlankTop";
 import TextComponent from "../../components/TextComponent";
 import Footer from "../../components/footer/Footer_AI";
 import { useDispatch } from "react-redux";
-import { registerAI} from "../../_actions/user_action";
+import Button from "../../components/Button";
+import { registerAI,getSummary} from "../../_actions/user_action";
 
 const Fix =styled.div`
 min-height:100vh;
@@ -125,13 +126,7 @@ const StyledButton = styled.button`
   outline:none;
   border-radius: 5px;
 `
-function Button({ children, border, color, background, font, width,...rest  }) {
-    return (
-      <StyledButton border={border} color={color} background={background} font={font} width={width} {...rest}>
-        {children}
-      </StyledButton>
-    )
-  }
+
 
 function AIPage() {
  const [myState,setMyState]=useState({
@@ -142,7 +137,27 @@ function AIPage() {
  });
  const dispatch=useDispatch();
 
+ const [myResult, setMyResult] =useState({
+  summary:''
+});
   
+ const showSummary= async evt =>  {
+  evt.preventDefault();
+  dispatch(getSummary(Number(window.localStorage.getItem('summary_id'))))
+          .then(response => {
+            if (response.payload.success) {
+              console.log("success");
+              console.log(response.payload.data.content);
+              setMyResult({
+                ...myState,
+                summary: response.payload.data.content
+              });
+              
+            } else {
+              console.log("error");
+            }
+          })
+}
 
  const onQuestionChange= async evt =>  {
     setMyState({
@@ -150,6 +165,7 @@ function AIPage() {
       question: evt.target.value
     });
   }
+  
 
   const formSubmit= async evt =>  {
     evt.preventDefault();
@@ -185,11 +201,15 @@ function AIPage() {
             <TextComponent title="요약된 결과를 확인하세요!"/>
             <TextComponent title="" />  <TextComponent title="" />  <TextComponent title="" /> 
           </Content>
+         
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
           <Content>
-            <PinkBox></PinkBox>
+            <PinkBox> <TextComponent width={100} title={myResult.summary} /> </PinkBox>
           </Content>
-          <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
+          <Content>
+          <TextComponent title="" />
+          <Button  color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button></Content>
+          <BlankTop DesktopMargin='7' TabletMargin='3' MobileMargin='1' /> 
           <form onSubmit={formSubmit}>
           <Content>
             <Title>AI Question</Title>
@@ -210,6 +230,7 @@ function AIPage() {
             <Confidence>Confidence</Confidence>
             <ConfidenceValue>{myState.confidence}%</ConfidenceValue>
           </Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
         </Wrapper>
       </Fix>
       <Footer></Footer>

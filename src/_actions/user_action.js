@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY,
-    REGISTER_AI,GET_SUMMARY,GET_MY_SUMMARY,GET_ALL_SUMMARY,GET_QUIZ,SEND_ANSWER} from './type'
+    REGISTER_AI,GET_SUMMARY,GET_MY_SUMMARY,GET_ALL_SUMMARY,GET_QUIZ,SEND_ANSWER,GET_MY_QUIZ} from './type'
 import { USER_SERVER } from '../config';
 
 
@@ -112,6 +112,19 @@ export const getMySummary=()=>{
     .then(response => response.data)
     return{
         type: GET_MY_SUMMARY,
+        payload: request
+    }
+}
+
+export const getMyQuiz=()=>{ 
+    const request = axios.get(`${USER_SERVER}/mypagequiz`, {
+        headers: {
+            authorization: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+        }
+       })
+    .then(response => response.data)
+    return{
+        type: GET_MY_QUIZ,
         payload: request
     }
 }

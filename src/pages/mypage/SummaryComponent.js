@@ -42,9 +42,9 @@ margin-top:30px;
 const Content = styled.div`
 margin-top:20px;
     font-family: Lora;
-    color:gray;
-    line-height: 15px;
-    font-weight:bold;
+    color:black;
+    line-height: 20px;
+ 
     font-size: 13px;
     margin-bottom:10px;
 `

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {getMySummary} from "../../_actions/user_action"
+import {getMySummary,getMyQuiz} from "../../_actions/user_action"
 import { useDispatch } from 'react-redux';
 import styled from "styled-components";
 import Header from "../../components/header/Header"
@@ -11,6 +11,7 @@ import BlankTop from "../../components/BlankTop"
 import ScoreComponent from "./ScoreComponent"
 import MyPageFooter from "../../components/footer/MyPageFooter"
 import axios from "axios"
+import QuizComponent from "./QuizComponent";
 
 const Fix =styled.div`
 min-height:100vh;
@@ -51,21 +52,56 @@ const PinkTitle = styled.div`
     line-height: 10px;
     font-weight:bold;
     font-size: 40px;
+    flex-wrap:wrap;
+`
+const ScoreWrapper = styled.div`
+margin-top:100px;
+  width:800px;
+  height:1000px;
+  display:flex;
+  background:  rgba(239, 116, 111, 0.3);
+  border-radius:10px;
+  display: flex;
+  flex-direction: column;
+  z-index:1;
+  outline:none;
+`
+const White = styled.div`
+margin-top:50px;
+margin-left:20px;
+  width:760px;
+  height:930px;
+  display:flex;
+  background: white;
+  border-radius:10px;
+  display: flex;
+  flex-direction: column;
+  z-index:1;
+  outline:none;
 `
 
 function MyPage(match){
 
 const [myState, setMyState] =useState({status: 'idle', member:null});
+const [myScore, setMyScore] =useState({status: 'idle', member:null});
 const dispatch = useDispatch();
 useEffect(()=>{
   dispatch(getMySummary()).then(response => {
     setMyState({status:'pending'});
     const data=response.payload.data;
-    console.log(data);
     setTimeout(() => setMyState({ status: 'resolved' , member:data}), 600);
      });
 },[]);
-console.log(myState);
+useEffect(()=>{
+  dispatch(getMyQuiz()).then(response => {
+    setMyState({status:'pending'});
+    const data=response.payload.data.quiz_list;
+    console.log(data);
+    setTimeout(() => setMyScore({ status: 'resolved' , member:data}), 600);
+     });
+},[]);
+
+console.log("s",myScore);
 
   return (
     <div>
@@ -93,35 +129,27 @@ console.log(myState);
             <BlankTop DesktopMargin='8' TabletMargin='3' MobileMargin='1' /> 
             <Content>
             <PinkTitle>Recent Test</PinkTitle></Content>
+            
             <Content>
-              <ScoreComponent
-              testTitle={"Test Title"}
-              testContent={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod`}
-              testScore={"2/3"}
-              />
-              <ScoreComponent
-              testTitle={"Test Title"}
-              testContent={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod`}
-              testScore={"2/3"}
-              />
-              <ScoreComponent
-              testTitle={"Test Title"}
-              testContent={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod`}
-              testScore={"2/3"}
-              />
-              <ScoreComponent
-              testTitle={"Test Title"}
-              testContent={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod`}
-              testScore={"2/3"}
-              />
+              {myScore.member?.map((test,i)=> <ScoreWrapper><White>
+              <div>
+               
+              <ScoreComponent 
+              bookTitle={test.book_title}
+              quizDate={test.quiz_date} />
+               
+                  {test.quiz?.map((data,k)=>
+                    <QuizComponent
+                    number={k+1}
+                    quizContent={data.quiz_content}
+                    correct={data.correct}
+                    my_answer={data.my_answer}
+                    correct_answer={data.correct_answer}/>
+
+                  )}
+                 
+                 </div></White></ScoreWrapper>)}
+                 
             </Content>
             <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
         </Wrapper>

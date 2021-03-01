@@ -60,11 +60,11 @@ const SearchPage = (match) => {
 
   const [result, setResult] = useState([]);
 
-  const handleChange = (event) => {
+  const handleChange = async(event) => {
     const title = myState?.member?.summary.filter((item) => {
       console.log(event.target.value);
       return (
-        item.book_title.toLowerCase().includes(event.target.value)
+        item.book_title?.toLowerCase().includes(event.target.value)
       );
     });
     setDefaultState({
@@ -83,11 +83,11 @@ useEffect(()=>{
   dispatch(getAllSummary()).then(response => {
     setMyState({status:'pending'});
     const data=response.payload.data;
-    setTimeout(() => setMyState({ status: 'resolved' , member:data}), 1000);
+    setMyState({ status: 'resolved' , member:data});
     setTimeout(() => setDefaultState({ status: 'resolved' , member:data}), 1000);
      });
      
-     console.log(myState);
+     console.log(defaultState);
 },[]);
 
 

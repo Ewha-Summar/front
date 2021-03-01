@@ -12,3 +12,4 @@ export const GET_MY_SUMMARY="get_my_summary"
 export const GET_ALL_SUMMARY="get_all_summary"
 export const GET_QUIZ="get_quiz";
 export const SEND_ANSWER="send_answer"
+export const GET_MY_QUIZ="get_my_quiz"
