@@ -8,6 +8,7 @@ import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer_question";
 import {useDispatch} from 'react-redux';
 import {getQuiz, sendAnswer,getSummary} from "../../_actions/user_action";
+import { render } from "@testing-library/react";
 
 const Fix =styled.div`
 min-height:100vh;
@@ -127,13 +128,13 @@ function BlankPage({}){
   const [post,setPost]=useState('');
   const [reply,setReply]=useState({
     summary_id:Number(window.localStorage.getItem("summary_id")),
-  quiz_list: []
-    
+    quiz_list: []
   });
+  const [end,setEnd]=useState('');
 
   const dispatch = useDispatch();
   const showSummary= async evt =>  {
-    evt.preventDefault();
+    //evt.preventDefault();
     dispatch(getSummary(Number(window.localStorage.getItem('summary_id'))))
             .then(response => {
               if (response.payload.success) {
@@ -178,7 +179,7 @@ function BlankPage({}){
           console.log("error");
         }
       })
-  },[questions, answers]);
+  },[questions, answers, end]);
 
   const onAnswerChange = async (event) => {
     const { name, value } = event.target;
@@ -187,7 +188,23 @@ function BlankPage({}){
           
           {...post,[name]:{my_answer:value,quiz_id:Number(name)}})
 
-  };
+  }
+
+
+
+  const setCorrect = async (id, correct) => {
+    var arr = JSON.parse(window.localStorage.getItem("answer_arr"));
+    arr = {...arr, [id]:correct};
+    window.localStorage.setItem("answer_arr",JSON.stringify(arr));
+  }
+
+  const showResult = async (response) => {
+    window.localStorage.setItem("score",response.payload.data.score);
+    response.payload.data.correct_list.map(answer => 
+      setCorrect(Number(answer.quiz_id), answer.correct)
+    );
+    showSummary(response);
+  }
 
   const formSubmit= async evt =>  {
     evt.preventDefault();
@@ -205,7 +222,9 @@ function BlankPage({}){
     dispatch(sendAnswer(reply))
             .then(response => {
               if (response.payload.success) {
-                console.log("sucess");
+                window.localStorage.setItem('isSet',Number(window.localStorage.getItem('summary_id')));
+                showResult(response);
+                setEnd(true);
               } else {
                 console.log("error");
               }
@@ -239,11 +258,12 @@ function BlankPage({}){
             <TextComponent title=""/> <TextComponent title=""/> <TextComponent title=""/>
           </Content>
           {questions.quiz.map((quiz, i)=>{
+            var answers = JSON.parse(window.localStorage.getItem('answer_arr'));
             return(
             <div>
             <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
             <Content>
-              <GrayBox><QuestionNo>{i+1}</QuestionNo><Questiontext>{quiz.content}</Questiontext></GrayBox>
+              <GrayBox><QuestionNo>{i+1}</QuestionNo>{Number(window.localStorage.getItem('isSet'))===Number(window.localStorage.getItem('summary_id')) ? answers[quiz.quiz_id]? <QuestionNo>correct</QuestionNo> : <QuestionNo>wrong</QuestionNo>:<p></p>}<Questiontext>{quiz.content}</Questiontext></GrayBox>
               <Input placeholder=" Input your answer." key={quiz.quiz_id} name={quiz.quiz_id} value={questions.quiz.quiz_id} onChange={onAnswerChange}></Input>
             </Content>
             </div>
@@ -251,7 +271,7 @@ function BlankPage({}){
           })}
           <Content>
             <TextComponent title="" />
-            <Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button>
+            {Number(window.localStorage.getItem('isSet'))===Number(window.localStorage.getItem('summary_id'))? <QuestionNo>제출 완료 {window.localStorage.getItem("score")}</QuestionNo>:<Button  color={'white'} background={'#10375C'} type="submit"> &emsp; &emsp; Submit &emsp;&emsp; </Button>}
           </Content>
           </form>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />

@@ -179,12 +179,11 @@ function SummarizePage({props}) {
             .then(response => {
               if (response.payload.success) {
                 console.log("success");
-                console.log(response.payload.data.content);
+
                 setMyState({
                   ...myState,
                   summary: response.payload.data.content
                 });
-                
               } else {
                 console.log("error");
               }
