@@ -88,6 +88,7 @@ useEffect(()=>{
      });
      
      console.log(defaultState);
+     console.log(myState)
 },[]);
 
 

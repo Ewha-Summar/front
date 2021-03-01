@@ -167,6 +167,7 @@ function SummarizePage({props}) {
             .then(response => {
               if (response.payload.success) {
                 window.localStorage.setItem('summary_id',response.payload.data.summary_id);
+                window.localStorage.setItem("answer_arr",JSON.stringify({}));
               } else {
                 console.log("error");
               }
