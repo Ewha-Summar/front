@@ -162,7 +162,8 @@ function SummarizePage({props}) {
   const formSubmit= async evt =>  {
     evt.preventDefault();
     console.log(myState);
-
+    window.localStorage.setItem("answer_arr",JSON.stringify({}));
+    window.localStorage.setItem("score","0/0");
     dispatch(registerSummary(myState))
             .then(response => {
               if (response.payload.success) {
@@ -184,7 +185,7 @@ function SummarizePage({props}) {
                   ...myState,
                   summary: response.payload.data.content
                 });
-                
+                window.localStorage.setItem("summary",response.payload.data.content)
               } else {
                 console.log("error");
               }
