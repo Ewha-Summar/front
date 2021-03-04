@@ -111,7 +111,7 @@ useEffect(()=>{
             <Content>
             {defaultState.member?.summary.map((summary,i)=>
               <CardComponent 
-              user_id={summary.user_id}
+              user_id={summary.user_name}
               bookTitle={summary.book_title}
               content={summary.content}
               bookAuthor={summary.book_author}
