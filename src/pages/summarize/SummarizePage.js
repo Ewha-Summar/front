@@ -4,14 +4,12 @@ import { useDispatch } from 'react-redux';
 import Header from "../../components/header/Header";
 import BlankTop from "../../components/BlankTop";
 import TextComponent from "../../components/TextComponent";
-import {Radio} from 'antd';
+import { Radio } from 'antd';
 import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer";
-import { registerSummary,getSummary } from "../../_actions/user_action";
+import { registerSummary, getSummary } from "../../_actions/user_action";
 
-
-
-const Fix =styled.div`
+const Fix = styled.div`
 min-height:100vh;
 background-color:  #ffffff;
 `
@@ -24,7 +22,7 @@ const Wrapper = styled.div`
 
   margin: 10 auto;
 `
-const Content=styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: row;
   margin-left:7%;
@@ -95,62 +93,63 @@ const Summary = styled.div`
     width:200rem;
 `
 
-function SummarizePage({props}) { 
-  const [myState, setMyState] =useState({
-    book_title:'',
-    summary_title:'',
-    book_author:'',
-    count:3,
-    input_type:0,
-    bf_summary:'',
-    summary:''
+function SummarizePage({ props }) {
+  const [myState, setMyState] = useState({
+    book_title: '',
+    summary_title: '',
+    book_author: '',
+    count: 3,
+    input_type: 0,
+    bf_summary: '',
+    summary: '',
+    keyword: ''
   });
-    
-  
+
+
   const dispatch = useDispatch();
 
-  const onSaveChange= async evt =>  {
+  const onSaveChange = async evt => {
     const { name, value } = evt.target
-    try{
+    try {
       setMyState({
         ...myState,
-        [name]:value
+        [name]: value
       })
-    }catch(e){
+    } catch (e) {
       console.error(e)
     }
   }
 
-  const onTypeChange= async evt => {
-    if(evt.target.value==="0"){
+  const onTypeChange = async evt => {
+    if (evt.target.value === "0") {
       setMyState({
         ...myState,
         type: 0
       });
     }
-    else{
+    else {
       setMyState({
         ...myState,
         input_type: 1
       });
     }
-    
+
   }
 
-  const onCountChange= async evt => {
-    if(evt.target.value==="3"){
+  const onCountChange = async evt => {
+    if (evt.target.value === "3") {
       setMyState({
         ...myState,
         count: 3
       });
     }
-    if(evt.target.value==="5"){
+    if (evt.target.value === "5") {
       setMyState({
         ...myState,
-        count:5
+        count: 5
       });
     }
-    if(evt.target.value==="7"){
+    if (evt.target.value === "7") {
       setMyState({
         ...myState,
         count: 7
@@ -159,117 +158,124 @@ function SummarizePage({props}) {
   }
 
 
-  const formSubmit= async evt =>  {
+  const formSubmit = async evt => {
     evt.preventDefault();
     console.log(myState);
-
+    window.localStorage.setItem("answer_arr", JSON.stringify({}));
+    window.localStorage.setItem("score", "0/0");
     dispatch(registerSummary(myState))
-            .then(response => {
-              if (response.payload.success) {
-                window.localStorage.setItem('summary_id',response.payload.data.summary_id);
-                window.localStorage.setItem("answer_arr",JSON.stringify({}));
-              } else {
-                console.log("error");
-              }
-            })
+      .then(response => {
+        if (response.payload.success) {
+          window.localStorage.setItem('summary_id', response.payload.data.summary_id);
+        } else {
+          console.log("error");
+        }
+      })
   }
 
-  const showSummary= async evt =>  {
+  const showSummary = async evt => {
     evt.preventDefault();
     dispatch(getSummary(Number(window.localStorage.getItem('summary_id'))))
-            .then(response => {
-              if (response.payload.success) {
-                console.log("success");
-
-                setMyState({
-                  ...myState,
-                  summary: response.payload.data.content
-                });
-              } else {
-                console.log("error");
-              }
-            })
+      .then(response => {
+        if (response.payload.success) {
+          console.log("success");
+          console.log(response.payload.data.content);
+          setMyState({
+            ...myState,
+            summary: response.payload.data.content
+          });
+          window.localStorage.setItem("summary", response.payload.data.content)
+        } else {
+          console.log("error");
+        }
+      })
   }
 
 
 
   return (<div>
     <Fix>
-        <Wrapper>
-          <Header />
-          
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
-          <form onSubmit={formSubmit}>
+      <Wrapper>
+        <Header />
+
+        <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+        <form onSubmit={formSubmit}>
           <Content>
-          <Title>Input Text Title</Title>
-          <TextComponent title="저장 제목을 입력하세요!" /><TextComponent title="" /><TextComponent title="" /><TextComponent title="" /></Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
-          <Content> <SmallInput type="text" placeholder="Input your text here." name="summary_title" onChange={onSaveChange} ></SmallInput></Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
-          <Content>
-          <Title>Input Book Title</Title>
-          <TextComponent title="요약문 제목을 입력하세요!" />
-          <TextComponent title="" />
-          <Title>Input Book Author</Title>
-          <TextComponent title="요약문의 저자 또는 출처를 입력하세요!" />
+            <Title>Input Text Title</Title>
+            <TextComponent title="저장 제목을 입력하세요!" /><TextComponent title="" />
+            <Title>Input Keyword</Title>
+            <TextComponent title="텍스트의 키워드를 입력해주세요!" />
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
           <Content>
-          <SmallInput type="text" placeholder="Input your text here."  name="book_title" onChange={onSaveChange} ></SmallInput>
-          <SmallInput type="text" placeholder="Input your text here."  name="book_author" onChange={onSaveChange} ></SmallInput></Content>
-          <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
-          
-          <Content>
-          <Title>Select Text Type</Title>
-          <TextComponent title="요약하는 문장의 종류를 선택하세요!" />
-          <TextComponent title="" />
-          <Title>Select Text Count</Title>
-          <TextComponent title="요약 문장의 개수를 선택하세요!" />
+            <SmallInput type="text" placeholder="Input your text here." name="summary_title" onChange={onSaveChange} ></SmallInput>
+            <SmallInput type="text" placeholder="Input your text here." name="keyword" onChange={onSaveChange} ></SmallInput>
           </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <Content>
+            <Title>Input Book Title</Title>
+            <TextComponent title="요약문 제목을 입력하세요!" />
+            <TextComponent title="" />
+            <Title>Input Book Author</Title>
+            <TextComponent title="요약문의 저자 또는 출처를 입력하세요!" />
+          </Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <Content>
+            <SmallInput type="text" placeholder="Input your text here." name="book_title" onChange={onSaveChange} ></SmallInput>
+            <SmallInput type="text" placeholder="Input your text here." name="book_author" onChange={onSaveChange} ></SmallInput></Content>
+          <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' />
+
+          <Content>
+            <Title>Select Text Type</Title>
+            <TextComponent title="요약하는 문장의 종류를 선택하세요!" />
+            <TextComponent title="" />
+            <Title>Select Text Count</Title>
+            <TextComponent title="요약 문장의 개수를 선택하세요!" />
+          </Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
           <Content>
             <Box>
-          <Radio.Group style={{display:'flex', justifyContent:'center'}} name='input_type' onChange={onTypeChange}>
-                <Radio style={{margin:'30px', paddingRight:'50px'}}  value="0">문어체</Radio>
-                
-                <Radio   style={{margin:'30px'}}  value="1">구어체</Radio>
+              <Radio.Group style={{ display: 'flex', justifyContent: 'center' }} name='input_type' onChange={onTypeChange}>
+                <Radio style={{ margin: '30px', paddingRight: '50px' }} value="0">문어체</Radio>
+
+                <Radio style={{ margin: '30px' }} value="1">구어체</Radio>
               </Radio.Group> </Box>
-              <Box>
-          <Radio.Group style={{display:'flex', justifyContent:'center'}} name='count' onChange={onCountChange}>
-                <Radio  style={{margin:'30px', paddingRight:'40px'}}  value="3">3문장</Radio>
-                <Radio  style={{margin:'30px', paddingRight:'40px'}} value="5">5문장</Radio>
-                <Radio  style={{margin:'30px', paddingRight:'40px'}}  value="7">7문장</Radio>
-              </Radio.Group> </Box>  
-      
+            <Box>
+              <Radio.Group style={{ display: 'flex', justifyContent: 'center' }} name='count' onChange={onCountChange}>
+                <Radio style={{ margin: '30px', paddingRight: '40px' }} value="3">3문장</Radio>
+                <Radio style={{ margin: '30px', paddingRight: '40px' }} value="5">5문장</Radio>
+                <Radio style={{ margin: '30px', paddingRight: '40px' }} value="7">7문장</Radio>
+              </Radio.Group> </Box>
+
           </Content>
-          <BlankTop DesktopMargin='5' TabletMargin='1' MobileMargin='1' /> 
+          <BlankTop DesktopMargin='5' TabletMargin='1' MobileMargin='1' />
           <Content>
             <Title>Summarize Your Text</Title>
             <TextComponent title="요약하고싶은 텍스트를 입력하세요!" />
             <TextComponent title="" /> <TextComponent title="" /> <TextComponent title="" />
           </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
           <Content>
-          <Input type="text" placeholder="Input your text here." name='text' onChange={onSaveChange} defaultValue={window.localStorage.getItem('text')}></Input></Content>
-          <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' /> 
+            <Input type="text" placeholder="Input your text here." name='text' onChange={onSaveChange} defaultValue={window.localStorage.getItem('text')}></Input></Content>
+          <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' />
           <Content>
-          <TextComponent title="" />
-          <Button  color={'white'} background={'#10375C'} type="submit" > &emsp; &emsp; Submit &emsp;&emsp; </Button></Content>
-          </form>
-          <Content>
-            <PinkTitle>Summary Result</PinkTitle>
-          <TextComponent title="요약된 결과를 확인하세요!" /> 
-          <TextComponent title="" />  <TextComponent title="" />  <TextComponent title="" /> 
-          </Content>
-          <BlankTop DesktopMargin='3' TabletMargin='1' MobileMargin='1' /> 
-          <Content>
+            <TextComponent title="" />
+            <Button color={'white'} background={'#10375C'} type="submit" > &emsp; &emsp; Submit &emsp;&emsp; </Button></Content>
+        </form>
+        <Content>
+          <PinkTitle>Summary Result</PinkTitle>
+          <TextComponent title="요약된 결과를 확인하세요!" />
+          <TextComponent title="" />  <TextComponent title="" />  <TextComponent title="" />
+        </Content>
+        <BlankTop DesktopMargin='3' TabletMargin='1' MobileMargin='1' />
+        <Content>
           <PinkBox> <TextComponent width={100} title={myState.summary} /> </PinkBox></Content>
-          <Content>
+        <Content>
           <TextComponent title="" />
-          <Button  color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button></Content>
-          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
-          </Wrapper>
-          
+          <Button color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button></Content>
+        <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+      </Wrapper>
+
     </Fix>
     <Footer></Footer> </div>
   );
