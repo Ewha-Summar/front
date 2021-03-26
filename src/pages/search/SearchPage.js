@@ -7,10 +7,10 @@ import Button from "../../components/Button";
 import CardComponent from "./CardComponent";
 import SearchFooter from "../../components/footer/SearchFooter"
 import { Card } from "antd";
-import {getAllSummary} from "../../_actions/user_action"
-import {useDispatch} from 'react-redux';
+import { getAllSummary } from "../../_actions/user_action"
+import { useDispatch } from 'react-redux';
 
-const Fix =styled.div`
+const Fix = styled.div`
 min-height:100vh;
 background-color:  #ffffff;
 `;
@@ -31,7 +31,7 @@ const PinkTitle = styled.div`
     font-weight:bold;
     font-size: 40px;
 `
-const Content=styled.div`
+const Content = styled.div`
   display: flex;
   flex-direction: row;
   margin-left:7%;
@@ -54,13 +54,13 @@ const Input = styled.input`
 
 const SearchPage = (match) => {
 
-  const [myState, setMyState] =useState({status: 'idle', member:null});
-  const [defaultState, setDefaultState] =useState({status: 'idle', member:null});
+  const [myState, setMyState] = useState({ status: 'idle', member: null });
+  const [defaultState, setDefaultState] = useState({ status: 'idle', member: null });
   const [search, setSearch] = useState("");
 
   const [result, setResult] = useState([]);
 
-  const handleChange = async(event) => {
+  const handleChange = async (event) => {
     const title = myState?.member?.summary.filter((item) => {
       console.log(event.target.value);
       return (
@@ -71,57 +71,57 @@ const SearchPage = (match) => {
       status: 'resolved',
       member: {
         ...defaultState.member,
-        summary:title
+        summary: title
       }
-  });
+    });
   };
 
   const dispatch = useDispatch();
 
 
-useEffect(()=>{
-  dispatch(getAllSummary()).then(response => {
-    setMyState({status:'pending'});
-    const data=response.payload.data;
-    setMyState({ status: 'resolved' , member:data});
-    setTimeout(() => setDefaultState({ status: 'resolved' , member:data}), 1000);
-     });
-     
-     console.log(defaultState);
-     console.log(myState)
-},[]);
+  useEffect(() => {
+    dispatch(getAllSummary()).then(response => {
+      setMyState({ status: 'pending' });
+      const data = response.payload.data;
+      setMyState({ status: 'resolved', member: data });
+      setTimeout(() => setDefaultState({ status: 'resolved', member: data }), 1000);
+    });
+
+    console.log(defaultState);
+    console.log(myState)
+  }, []);
 
 
   return (
     <div>
-    <Fix>
+      <Fix>
         <Wrapper>
-            <Header></Header>
-            <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
-            <Content>
+          <Header></Header>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <Content>
             <PinkTitle>Summary Search</PinkTitle>
             <TextComponent title='요약문을 검색해보세요!' />
             <TextComponent title='' /> <TextComponent title='' /> <TextComponent title='' />
-            </Content>
-            <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
-            <Content>
+          </Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+          <Content>
             <Input onChange={handleChange} placeholder="Input your text here." ></Input>
-            <Button  margin={'25'} color={'white'} background={'#EF746F'} type="submit"> &emsp; &emsp;&emsp; &emsp; Search &emsp;&emsp;&emsp; &emsp; </Button>
-            </Content>
-            <Content>
-            {defaultState.member?.summary.map((summary,i)=>
-              <CardComponent 
-              user_id={summary.user_name}
-              bookTitle={summary.book_title}
-              content={summary.content}
-              bookAuthor={summary.book_author}
+            <Button margin={'25'} color={'white'} background={'#EF746F'} type="submit"> &emsp; &emsp;&emsp; &emsp; Search &emsp;&emsp;&emsp; &emsp; </Button>
+          </Content>
+          <Content>
+            {defaultState.member?.summary.map((summary, i) =>
+              <CardComponent
+                user_id={summary.user_name}
+                bookTitle={summary.book_title}
+                content={summary.content}
+                bookAuthor={summary.book_author}
               />
-              )}
-            </Content> 
-            <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' /> 
+            )}
+          </Content>
+          <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
         </Wrapper>
-    </Fix>
-    <SearchFooter></SearchFooter></div>
+      </Fix>
+      <SearchFooter></SearchFooter></div>
   );
 };
 

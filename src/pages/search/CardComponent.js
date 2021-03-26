@@ -15,7 +15,7 @@ margin-top:100px;
   outline:none;
 `
 
-const Circle =styled.div`
+const Circle = styled.div`
 position: absolute;
 margin-left:10px;
 margin-top:10px;
@@ -32,7 +32,7 @@ margin-left:80px;
     font-family: Lora;
     color:#10375C;
     width:300px;
-    line-height: 10px;
+    line-height: 20px;
     font-weight:bold;
     font-size: 20px;
     margin-bottom:10px;
@@ -54,31 +54,31 @@ margin-left:80px;
     line-height: 20px;
     font-size: 14px;
 `
-const Row=styled.div`
+const Row = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 `
 
-const CardComponent =({bookTitle,content,bookAuthor,user_id}) =>{
-    
-    return(
-        <Wrapper>
-            <Circle /> 
-            <Row>
-            <Title>{bookTitle}</Title></Row>
-           
-            <Author>Author:{bookAuthor}</Author>
-            
-            
-            <Row>
-            <Content> {content}
-            </Content>
-            
-            </Row>
-            <Author>by {user_id} </Author>
-        </Wrapper>
-    );
+const CardComponent = ({ bookTitle, content, bookAuthor, user_id }) => {
+
+  return (
+    <Wrapper>
+      <Circle />
+      <Row>
+        <Title>{bookTitle}</Title></Row>
+
+      <Author>Author:{bookAuthor}</Author>
+
+
+      <Row>
+        <Content> {content}
+        </Content>
+
+      </Row>
+      <Author>by {user_id} </Author>
+    </Wrapper>
+  );
 }
 
 export default CardComponent;

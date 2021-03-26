@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import Button from "../../components/Button"
-import QuizComponent from "./QuizComponent"
+
 
 const Wrapper = styled.div`
-
+margin-top:50px;
   width:800px;
-  height:70px;
+  height:570px;
   display:flex;
-  border:  rgba(239, 116, 111, 0.5);
+  background: rgba(16, 55, 92, 0.7);
   border-radius:10px;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,7 @@ const White = styled.div`
 margin-top:100px;
 margin-left:20px;
   width:760px;
-  height:150px;
+  height:450px;
   display:flex;
   background: white;
   border-radius:10px;
@@ -42,9 +42,9 @@ margin-top:30px;
 const Content = styled.div`
 margin-top:20px;
     font-family: Lora;
-    color:gray;
-    line-height: 15px;
-    font-weight:bold;
+    color:black;
+    line-height: 20px;
+ 
     font-size: 13px;
     margin-bottom:10px;
 `
@@ -52,13 +52,13 @@ const Author = styled.div`
 display: flex;
   flex-direction: row;
   justify-content:flex-end;
-  margin-right:50px;
+  margin-right:10px;
   font-weight:bold;
 
 `
 
 
-const Row = styled.div`
+const Row=styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -66,17 +66,17 @@ const Row = styled.div`
   margin-left:20px;
 `
 
-function SummaryComponent({ bookTitle, QuizComponent, quizDate }) {
-
-  return (
-    <Wrapper>
-      <Row>
-        <Title> {bookTitle}</Title></Row>
-      <Author>제출한 날짜: {quizDate}</Author>
-      {QuizComponent}
-
-    </Wrapper>
-  );
+function SummaryComponent({bookTitle,bookContent,bookAuthor,saveTitle}){
+    
+    return(
+        <Wrapper>
+            <White> <Row>
+                <Title> {saveTitle}</Title></Row>
+                <Row><Content>{bookContent}</Content></Row>
+                <Author>문서 제목: {bookTitle}</Author><Author>문서 저자: {bookAuthor}</Author>
+            </White> 
+        </Wrapper>
+    );
 }
 
 export default SummaryComponent;

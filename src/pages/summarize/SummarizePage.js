@@ -166,6 +166,7 @@ function SummarizePage({ props }) {
       .then(response => {
         if (response.payload.success) {
           window.localStorage.setItem('summary_id', response.payload.data.summary_id);
+          console.log(response.payload.data);
         } else {
           console.log("error");
         }
@@ -189,6 +190,7 @@ function SummarizePage({ props }) {
         }
       })
   }
+
 
 
 
@@ -278,6 +280,7 @@ function SummarizePage({ props }) {
     </Fix>
     <Footer></Footer> </div>
   );
+
 }
 
 

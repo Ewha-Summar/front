@@ -81,7 +81,7 @@ margin-left:20px;
   outline:none;
 `
 
-function MyPage(match) {
+function MyQuizPage(match) {
 
   const [myState, setMyState] = useState({ status: 'idle', member: null });
   const [myScore, setMyScore] = useState({ status: 'idle', member: null });
@@ -113,28 +113,36 @@ function MyPage(match) {
             <Picture><img src={Picture2} /><img src={Picture1} /></Picture>
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
-          <Content>
-            <Title>Recent Summaries</Title></Content>
-          <Content>
-            {myState.member?.summary_result?.map((summary, i) =>
-              <div>
-                <SummaryComponent
-                  saveTitle={summary.summary_title}
-                  bookTitle={summary.book_title}
-                  bookContent={summary.content}
-                  bookAuthor={summary.book_author}
-                />
-              </div>
-            )}
 
+          <Content>
+            <PinkTitle>Recent Test</PinkTitle></Content>
+
+          <Content>
+            {myScore.member?.map((test, i) => <ScoreWrapper><White>
+            <div>
+
+              <ScoreComponent
+                bookTitle={test.book_title}
+                quizDate={test.quiz_date} />
+
+              {test.quiz?.map((data, k) =>
+                  <QuizComponent
+                    number={k + 1}
+                    quizContent={data.quiz_content}
+                    correct={data.correct}
+                    my_answer={data.my_answer}
+                    correct_answer={data.correct_answer} />
+
+                )}
+
+              </div></White></ScoreWrapper>)}
 
           </Content>
-
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' />
         </Wrapper>
       </Fix>
-      <MyPageFooter /> </div >
+      <MyPageFooter /></div>
   );
 };
 
-export default MyPage;
+export default MyQuizPage;
