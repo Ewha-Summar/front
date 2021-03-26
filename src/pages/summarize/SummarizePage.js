@@ -11,7 +11,7 @@ import { registerSummary, getSummary } from "../../_actions/user_action";
 
 const Fix = styled.div`
 min-height:100vh;
-background-color:  #ffffff;
+background-color: #ffffff;
 `
 const Wrapper = styled.div`
   width:110rem;
@@ -19,7 +19,6 @@ const Wrapper = styled.div`
   padding:30px;
   display: flex;
   flex-direction: column;
-
   margin: 10 auto;
 `
 const Content = styled.div`
