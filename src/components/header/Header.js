@@ -34,6 +34,7 @@ const Header=()=>{
     setTimeout(() => setMyState({ status: "resolved", member: null }), 600);
   };
   switch (window.localStorage.getItem("isAuth")) {
+    case "":
     case "false":
       return (
         <Detail>

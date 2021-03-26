@@ -26,13 +26,13 @@ height:50px;
    
 `
 const Content2 = styled.div`
-height:50px;
+    height:50px;
     font-family: Lora;
     color:black;
     font-weight:bold;
     display: flex;
-flex-direction: row;
-justify-content: flex-end;
+    flex-direction: row;
+    justify-content: flex-end;
  
     font-size: 13px;
 
