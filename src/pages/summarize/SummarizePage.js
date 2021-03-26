@@ -8,6 +8,7 @@ import { Radio } from 'antd';
 import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer";
 import { registerSummary, getSummary } from "../../_actions/user_action";
+import Loading from "../../components/loading/Loading";
 
 const Fix = styled.div`
 min-height:100vh;
@@ -103,7 +104,7 @@ function SummarizePage({ props }) {
     summary: '',
     keyword: ''
   });
-
+  const [isLoading, setIsLoading] = useState('');
 
   const dispatch = useDispatch();
 
@@ -158,6 +159,7 @@ function SummarizePage({ props }) {
 
 
   const formSubmit = async evt => {
+    setIsLoading('pending');
     evt.preventDefault();
     console.log(myState);
     window.localStorage.setItem("answer_arr", JSON.stringify({}));
@@ -166,7 +168,7 @@ function SummarizePage({ props }) {
       .then(response => {
         if (response.payload.success) {
           window.localStorage.setItem('summary_id', response.payload.data.summary_id);
-          console.log(response.payload.data);
+          setIsLoading('resolved');
         } else {
           console.log("error");
         }
@@ -193,12 +195,10 @@ function SummarizePage({ props }) {
 
 
 
-
   return (<div>
     <Fix>
       <Wrapper>
         <Header />
-
         <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
         <form onSubmit={formSubmit}>
           <Content>
@@ -263,24 +263,28 @@ function SummarizePage({ props }) {
             <TextComponent title="" />
             <Button color={'white'} background={'#10375C'} type="submit" > &emsp; &emsp; Submit &emsp;&emsp; </Button></Content>
         </form>
-        <Content>
-          <PinkTitle>Summary Result</PinkTitle>
-          <TextComponent title="요약된 결과를 확인하세요!" />
-          <TextComponent title="" />  <TextComponent title="" />  <TextComponent title="" />
-        </Content>
-        <BlankTop DesktopMargin='3' TabletMargin='1' MobileMargin='1' />
-        <Content>
-          <PinkBox> <TextComponent width={100} title={myState.summary} /> </PinkBox></Content>
-        <Content>
-          <TextComponent title="" />
-          <Button color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button></Content>
-        <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+        {isLoading == '' ? <Content></Content> :
+          isLoading == 'pending' ? <Loading></Loading> :
+            <>
+              <Content>
+                <PinkTitle>Summary Result</PinkTitle>
+                <TextComponent title="요약된 결과를 확인하세요!" />
+                <TextComponent title="" />  <TextComponent title="" />  <TextComponent title="" />
+              </Content>
+              <BlankTop DesktopMargin='3' TabletMargin='1' MobileMargin='1' />
+              <Content>
+                <PinkBox> <TextComponent width={100} title={myState.summary} /> </PinkBox></Content>
+              <Content>
+                <TextComponent title="" />
+                <Button color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button></Content>
+              <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
+            </>
+        }
       </Wrapper>
 
     </Fix>
     <Footer></Footer> </div>
   );
-
 }
 
 
