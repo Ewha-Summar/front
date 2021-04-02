@@ -11,7 +11,7 @@ import RegisterPage from './pages/register/RegisterPage'
 import MyQuizPage from './pages/myquiz/MyQuizPage'
 
 function App() {
-  window.localStorage.setItem("isAuth", "true");
+  window.localStorage.setItem("isAuth", "false");
   return (
     <Router>
       <Switch>
