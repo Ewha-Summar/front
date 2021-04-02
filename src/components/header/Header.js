@@ -39,7 +39,7 @@ const Header = () => {
     setMyState({ status: "pending" });
     setTimeout(() => setMyState({ status: "resolved", member: null }), 600);
   };
-  switch (window.localStorage.getItem("isAuth")) {
+  switch (window.localStorage?.getItem("isAuth")) {
     case "false":
       return (
         <Detail>
@@ -56,7 +56,7 @@ const Header = () => {
           <Button font='15' color='white' background='#10375C' onClick={() => history.push(`/register`)} >&nbsp;&nbsp;Sign Up&nbsp;&nbsp;</Button>
         </Detail>
       );
-    case "":
+    case null:
       return (
         <Detail>
           <Link to="/">
