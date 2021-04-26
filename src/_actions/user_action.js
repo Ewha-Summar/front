@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {LOGIN_USER,REGISTER_USER,AUTH_USER, LOGOUT_USER,NAME_USER,PASSWORD_USER,DELETE_TEST,REGISTER_SUMMARY,
-    REGISTER_AI,GET_SUMMARY,GET_MY_SUMMARY,GET_ALL_SUMMARY,GET_QUIZ,SEND_ANSWER,GET_MY_QUIZ} from './type'
+    REGISTER_AI,GET_SUMMARY,GET_MY_SUMMARY,GET_ALL_SUMMARY,GET_QUIZ,SEND_ANSWER,GET_MY_QUIZ,GET_RETEST,SEND_ANSWER_AGAIN} from './type'
 import { USER_SERVER } from '../config';
 
 
@@ -57,6 +57,32 @@ export const sendAnswer=(dataToSubmit)=>{
     .then(response => response.data)
     return{
         type:SEND_ANSWER,
+        payload: request
+    }
+}
+
+export const getRetest = (quiz_type, summary_id) => {
+    const request = axios.get(`${USER_SERVER}/review_quiz?quiz_type=${quiz_type}&summary_id=${summary_id}`,{
+        headers: {
+            authorization: window.localStorage.getItem('jwt')
+        }
+    })
+    .then(response => response.data)
+    return{
+        type: GET_RETEST,
+        payload: request
+    }
+}
+
+export const sendAnswerAgain=(dataToSubmit)=>{
+    const request = axios.post(`${USER_SERVER}/review_scoring`,dataToSubmit, {
+        headers:{
+            authorization: window.localStorage.getItem('jwt')
+        }
+    })
+    .then(response => response.data)
+    return{
+        type:SEND_ANSWER_AGAIN,
         payload: request
     }
 }

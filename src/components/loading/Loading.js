@@ -61,7 +61,7 @@ function Loading({ }) {
     return (
         <Wrapper>
             <LoadWrapp>
-                <p>문제를 생성중입니다</p>
+                <p>요약문을 생성중입니다</p>
                 <Line1></Line1> &nbsp;
             <Line2></Line2> &nbsp;
             <Line3></Line3>

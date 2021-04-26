@@ -163,7 +163,9 @@ function SummarizePage({ props }) {
     evt.preventDefault();
     console.log(myState);
     window.localStorage.setItem("answer_arr", JSON.stringify({}));
+    window.localStorage.setItem("review_answer_arr", JSON.stringify({}));
     window.localStorage.setItem("score", "0/0");
+    window.localStorage.setItem("review_score", "0/0");
     dispatch(registerSummary(myState))
       .then(response => {
         if (response.payload.success) {
