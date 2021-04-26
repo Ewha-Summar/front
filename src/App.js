@@ -10,6 +10,7 @@ import LoginPage from './pages/login/LoginPage'
 import RegisterPage from './pages/register/RegisterPage'
 import MyQuizPage from './pages/myquiz/MyQuizPage'
 import Retest from './pages/retest/Retest';
+import SelfStudyPage from './pages/selfstudy/SelfStudyPage';
 
 function App() {
   return (
@@ -25,7 +26,8 @@ function App() {
         <Route exact path="/login" component={LoginPage} />
         <Route exact path="/register" component={RegisterPage} />
         <Route exact path="/myquiz" component={MyQuizPage} />
-        <Route exact path="/retest" component={Retest}/>;
+        <Route exact path="/retest" component={Retest} />
+        <Route exact path="/selfstudy" component={SelfStudyPage} />
       </Switch>
     </Router>
   );

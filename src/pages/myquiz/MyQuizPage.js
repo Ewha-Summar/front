@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getMySummary, getMyQuiz } from "../../_actions/user_action"
+import { getReviewQuiz, getMyQuiz } from "../../_actions/user_action"
 import { useDispatch } from 'react-redux';
 import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
@@ -53,6 +53,7 @@ const PinkTitle = styled.div`
     line-height: 10px;
     font-weight:bold;
     font-size: 40px;
+    margin-left:50px;
     flex-wrap:wrap;
 `
 const ScoreWrapper = styled.div`
@@ -61,6 +62,19 @@ margin-top:100px;
   height:1000px;
   display:flex;
   background:  rgba(239, 116, 111, 0.3);
+  border-radius:10px;
+  display: flex;
+  flex-direction: column;
+  z-index:1;
+  outline:none;
+`
+
+const BlueScoreWrapper = styled.div`
+margin-top:100px;
+  width:800px;
+  height:1000px;
+  display:flex;
+  background:  #10375C;
   border-radius:10px;
   display: flex;
   flex-direction: column;
@@ -85,15 +99,10 @@ function MyQuizPage(match) {
 
   const [myState, setMyState] = useState({ status: 'idle', member: null });
   const [myScore, setMyScore] = useState({ status: 'idle', member: null });
+  const [reviewScore, setReviewScore] = useState({ status: 'idle', member: null });
   const dispatch = useDispatch();
   const history = useHistory();
-  useEffect(() => {
-    dispatch(getMySummary()).then(response => {
-      setMyState({ status: 'pending' });
-      const data = response.payload.data;
-      setTimeout(() => setMyState({ status: 'resolved', member: data }), 600);
-    });
-  }, []);
+
   useEffect(() => {
     dispatch(getMyQuiz()).then(response => {
       setMyState({ status: 'pending' });
@@ -102,40 +111,62 @@ function MyQuizPage(match) {
     });
   }, []);
 
+  useEffect(() => {
+    dispatch(getReviewQuiz()).then(response => {
+      setReviewScore({ status: 'pending' });
+      const data = response.payload.data.quiz_list;
+      setTimeout(() => setReviewScore({ status: 'resolved', member: data }), 600);
+    });
+  }, []);
+
+
 
   return (
     <div>
       <Fix>
         <Wrapper>
           <Header> </Header>
-          <Content>
-            <CardComponent nickname={window.localStorage.getItem('name')} email={window.localStorage.getItem('user_id')} />
-            <Picture><img src={Picture2} /><img src={Picture1} /></Picture>
-          </Content>
+
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
 
           <Content>
-            <PinkTitle>Recent Test</PinkTitle></Content>
+            <PinkTitle>Origin Test</PinkTitle>  <Title>Review Test</Title></Content>
 
           <Content>
             {myScore.member?.map((test, i) => <ScoreWrapper><White>
-            <div>
+              <div>
 
-              <ScoreComponent
-                bookTitle={test.book_title}
-                quizDate={test.quiz_date} />
+                <ScoreComponent
+                  bookTitle={test.book_title}
+                  quizDate={test.quiz_date} />
 
-              {test.quiz?.map((data, k) =>
+                {test.quiz?.map((data, k) =>
                   <QuizComponent
                     number={k + 1}
                     quizContent={data.quiz_content}
                     correct={data.correct}
                     my_answer={data.my_answer}
                     correct_answer={data.correct_answer} />
-
                 )}
 
               </div></White></ScoreWrapper>)}
+            {reviewScore.member?.map((test, i) => <BlueScoreWrapper><White>
+              <div>
+
+                <ScoreComponent
+                  bookTitle={test.book_title}
+                  quizDate={test.quiz_date} />
+
+                {test.quiz?.map((data, k) =>
+                  <QuizComponent
+                    number={k + 1}
+                    quizContent={data.quiz_content}
+                    correct={data.correct}
+                    my_answer={data.my_answer}
+                    correct_answer={data.correct_answer} />
+                )}
+
+              </div></White></BlueScoreWrapper>)}
 
           </Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' />
