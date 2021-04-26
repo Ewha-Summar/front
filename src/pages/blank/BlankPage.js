@@ -263,7 +263,7 @@ function BlankPage({}){
             <div>
             <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1'/>
             <Content>
-              <GrayBox><QuestionNo>{i+1}</QuestionNo>{Number(window.localStorage.getItem('isSet'))===Number(window.localStorage.getItem('summary_id')) ? answers[quiz.quiz_id]? <QuestionNo>correct</QuestionNo> : <QuestionNo>wrong</QuestionNo>:<p></p>}<Questiontext>{quiz.content}</Questiontext></GrayBox>
+              <GrayBox><QuestionNo>{i+1}</QuestionNo>{Number(window.localStorage.getItem('isSet'))===Number(window.localStorage.getItem('summary_id')) ? answers[quiz.quiz_id]==='O'? <QuestionNo>correct</QuestionNo> : <QuestionNo>wrong</QuestionNo>:<p></p>}<Questiontext>{quiz.content}</Questiontext></GrayBox>
               <Input placeholder=" Input your answer." key={quiz.quiz_id} name={quiz.quiz_id} value={questions.quiz.quiz_id} onChange={onAnswerChange}></Input>
             </Content>
             </div>
