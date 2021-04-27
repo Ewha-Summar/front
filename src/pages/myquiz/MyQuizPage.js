@@ -130,27 +130,10 @@ function MyQuizPage(match) {
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
 
           <Content>
-            <PinkTitle>Origin Test</PinkTitle>  <Title>Review Test</Title></Content>
+            <Title>Origin Test</Title>  <PinkTitle>Review Test</PinkTitle></Content>
 
           <Content>
-            {myScore.member?.map((test, i) => <ScoreWrapper><White>
-              <div>
-
-                <ScoreComponent
-                  bookTitle={test.book_title}
-                  quizDate={test.quiz_date} />
-
-                {test.quiz?.map((data, k) =>
-                  <QuizComponent
-                    number={k + 1}
-                    quizContent={data.quiz_content}
-                    correct={data.correct}
-                    my_answer={data.my_answer}
-                    correct_answer={data.correct_answer} />
-                )}
-
-              </div></White></ScoreWrapper>)}
-            {reviewScore.member?.map((test, i) => <BlueScoreWrapper><White>
+            {myScore.member?.map((test, i) => <BlueScoreWrapper><White>
               <div>
 
                 <ScoreComponent
@@ -167,6 +150,23 @@ function MyQuizPage(match) {
                 )}
 
               </div></White></BlueScoreWrapper>)}
+            {reviewScore.member?.map((test, i) => <ScoreWrapper><White>
+              <div>
+
+                <ScoreComponent
+                  bookTitle={test.book_title}
+                  quizDate={test.quiz_date} />
+
+                {test.quiz?.map((data, k) =>
+                  <QuizComponent
+                    number={k + 1}
+                    quizContent={data.quiz_content}
+                    correct={data.review_correct}
+                    my_answer={data.review_answer}
+                    correct_answer={data.correct_answer} />
+                )}
+
+              </div></White></ScoreWrapper>)}
 
           </Content>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' />

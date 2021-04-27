@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { getMySummary, getMyQuiz } from "../../_actions/user_action"
+import { getMySummary, getMyQuiz, getSelfStudy } from "../../_actions/user_action"
 import { useDispatch } from 'react-redux';
 import { useHistory, Link } from "react-router-dom";
 import styled from "styled-components";
 import Header from "../../components/header/Header"
 import CardComponent from "./CardComponent"
 import SummaryComponent from './SummaryComponent'
+import StudyComponent from './StudyComponent'
 import Picture1 from '../../assets/mypage1.jpg'
 import Picture2 from '../../assets/mypage2.jpg'
 import BlankTop from "../../components/BlankTop"
@@ -84,7 +85,7 @@ margin-left:20px;
 function MyPage(match) {
 
   const [myState, setMyState] = useState({ status: 'idle', member: null });
-  const [myScore, setMyScore] = useState({ status: 'idle', member: null });
+  const [mySelf, setMySelf] = useState({ status: 'idle', member: null });
   const dispatch = useDispatch();
   const history = useHistory();
   useEffect(() => {
@@ -95,12 +96,13 @@ function MyPage(match) {
     });
   }, []);
   useEffect(() => {
-    dispatch(getMyQuiz()).then(response => {
-      setMyState({ status: 'pending' });
-      const data = response.payload.data.quiz_list;
-      setTimeout(() => setMyScore({ status: 'resolved', member: data }), 600);
+    dispatch(getSelfStudy()).then(response => {
+      setMySelf({ status: 'pending' });
+      const data = response.payload.data;
+      setTimeout(() => setMySelf({ status: 'resolved', member: data }), 600);
     });
   }, []);
+
 
 
   return (
@@ -114,7 +116,7 @@ function MyPage(match) {
           </Content>
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
           <Content>
-            <Title>Recent Summaries</Title></Content>
+            <Title>My Summaries</Title> <PinkTitle>My Study</PinkTitle></Content>
           <Content>
             {myState.member?.summary_result?.map((summary, i) =>
               <div>
@@ -123,6 +125,14 @@ function MyPage(match) {
                   bookTitle={summary.book_title}
                   bookContent={summary.content}
                   bookAuthor={summary.book_author}
+                />
+              </div>
+            )}
+            {mySelf.member?.summary?.map((study, i) =>
+              <div>
+                <StudyComponent
+
+                  bookContent={study.self_learning}
                 />
               </div>
             )}

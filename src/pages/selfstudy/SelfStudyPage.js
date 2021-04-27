@@ -7,7 +7,7 @@ import BlankTop from "../../components/BlankTop";
 import TextComponent from "../../components/TextComponent";
 import Button from "../../components/Button";
 import Footer from "../../components/footer/Footer";
-import { getSummary } from "../../_actions/user_action";
+import { getSummary, sendSelfStudy } from "../../_actions/user_action";
 
 const Fix = styled.div`
 min-height:100vh;
@@ -95,7 +95,9 @@ function SelfStudyPage() {
     const dispatch = useDispatch();
 
     const [myResult, setMyResult] = useState({
-        summary: ''
+        self_learning: "",
+        summary_id: Number(window.localStorage.getItem('summary_id'))
+
     });
 
     const showSummary = async evt => {
@@ -115,8 +117,33 @@ function SelfStudyPage() {
                 }
             })
     }
+    const onSaveChange = async evt => {
+        const { value } = evt.target
+        try {
+            setMyResult({
+                ...myResult,
+                self_learning: value
+            })
+            console.log(myResult);
+        } catch (e) {
+            console.error(e)
+        }
+    }
 
+    const sendSelf = async evt => {
+        evt.preventDefault();
+        dispatch(sendSelfStudy(myResult))
+            .then(response => {
+                if (response.payload.success) {
+                    console.log("success");
+                    console.log(myResult);
 
+                } else {
+                    console.log("error");
+                    console.log(myResult);
+                }
+            })
+    }
 
 
 
@@ -137,7 +164,7 @@ function SelfStudyPage() {
                     </Content>
                     <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
                     <Content>
-                        <Input type="text" placeholder="Input your text here." name='text' defaultValue={window.localStorage.getItem('text')}></Input>
+                        <Input type="text" placeholder="Input your text here." name="self_learning" onChange={onSaveChange}></Input>
                         <PinkBox> <TextComponent width={100} title={myResult.summary} /> </PinkBox></Content>
                     <Content>
 
@@ -149,7 +176,7 @@ function SelfStudyPage() {
                     </Content>
                     <Content>
                         <TextComponent title="" />
-                        <Button color={'white'} background={'#10375C'} type="submit" > &emsp; &emsp; Save the text &emsp;&emsp; </Button>
+                        <Button color={'white'} background={'#10375C'} onClick={sendSelf} type="submit" > &emsp; &emsp; Save the text &emsp;&emsp; </Button>
                         <TextComponent title="" />
                         <Button color={'white'} background={'#EF746F'} onClick={showSummary} > &emsp; &emsp; See the results &emsp;&emsp; </Button>
 

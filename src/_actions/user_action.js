@@ -1,7 +1,7 @@
 import axios from 'axios'
 import {
     LOGIN_USER, REGISTER_USER, AUTH_USER, LOGOUT_USER, NAME_USER, PASSWORD_USER, DELETE_TEST, REGISTER_SUMMARY,
-    REGISTER_AI, GET_SUMMARY, GET_MY_SUMMARY, GET_ALL_SUMMARY, GET_QUIZ, SEND_ANSWER, GET_MY_QUIZ, GET_RETEST, SEND_ANSWER_AGAIN, GET_REVIEW_QUIZ
+    REGISTER_AI, GET_SUMMARY, GET_MY_SUMMARY, GET_SELF_STUDY, GET_ALL_SUMMARY, GET_QUIZ, SEND_ANSWER, SEND_SELF_STUDY, GET_MY_QUIZ, GET_RETEST, SEND_ANSWER_AGAIN, GET_REVIEW_QUIZ
 } from './type'
 import { USER_SERVER } from '../config';
 
@@ -89,6 +89,18 @@ export const sendAnswerAgain = (dataToSubmit) => {
         payload: request
     }
 }
+export const sendSelfStudy = (dataToSubmit) => {
+    const request = axios.post(`${USER_SERVER}/self_learning`, dataToSubmit, {
+        headers: {
+            authorization: window.localStorage.getItem('jwt')
+        }
+    })
+        .then(response => response.data)
+    return {
+        type: SEND_SELF_STUDY,
+        payload: request
+    }
+}
 
 export const registerAI = (summary_id, question) => {
     const request = axios.get(`${USER_SERVER}/qna?summary_id=${summary_id}&question="${question}"`, {
@@ -102,6 +114,7 @@ export const registerAI = (summary_id, question) => {
         payload: request
     }
 }
+
 
 
 
@@ -130,6 +143,19 @@ export const getSummary = (summary_id) => {
         payload: request
     }
 }
+export const getSelfStudy = () => {
+    const request = axios.get(`${USER_SERVER}/self_learning`, {
+        headers: {
+            authorization: window.localStorage.getItem('jwt') //the token is a variable which holds the token'
+        }
+    })
+        .then(response => response.data)
+    return {
+        type: GET_SELF_STUDY,
+        payload: request
+    }
+}
+
 
 
 export const getMySummary = () => {
