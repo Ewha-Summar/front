@@ -35,6 +35,25 @@ const Content = styled.div`
   justify-content: space-between;
   flex-wrap:wrap;
 `
+const Index = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left:7%;
+  justify-content: space-between;
+  flex-wrap:wrap;
+  left:20px;
+`
+const Index2 = styled.div`
+  display: flex;
+  position:absolute;
+  flex-direction: column;
+  margin-left:5%;
+  justify-content: space-between;
+  flex-wrap:wrap;
+  left:50%;
+  top:610px;
+  
+`
 const Picture = styled.div`
   display: flex;
   flex-direction: row;
@@ -117,28 +136,30 @@ function MyPage(match) {
           <BlankTop DesktopMargin='3' TabletMargin='3' MobileMargin='1' />
           <Content>
             <Title>My Summaries</Title> <PinkTitle>My Study</PinkTitle></Content>
-          <Content>
+          <Index>
             {myState.member?.summary_result?.map((summary, i) =>
-              <div>
-                <SummaryComponent
-                  saveTitle={summary.summary_title}
-                  bookTitle={summary.book_title}
-                  bookContent={summary.content}
-                  bookAuthor={summary.book_author}
-                />
-              </div>
-            )}
+
+              <SummaryComponent
+                saveTitle={summary.summary_title}
+                bookTitle={summary.book_title}
+                bookContent={summary.content}
+                bookAuthor={summary.book_author}
+              />
+
+            )} </Index>
+          <Index2>
+
             {mySelf.member?.summary?.map((study, i) =>
-              <div>
-                <StudyComponent
 
-                  bookContent={study.self_learning}
-                />
-              </div>
+              <StudyComponent
+
+                bookContent={study.self_learning}
+              />
+
             )}
 
 
-          </Content>
+          </Index2>
 
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' />
         </Wrapper>

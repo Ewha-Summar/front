@@ -67,12 +67,17 @@ const Row = styled.div`
 `
 
 function SummaryComponent({ bookTitle, QuizComponent, quizDate }) {
+  var date = quizDate.split(" ")[0];
+  var date1 = quizDate.split(" ")[1];
+  var date2 = quizDate.split(" ")[2];
+  var date3 = quizDate.split(" ")[3];
+
 
   return (
     <Wrapper>
       <Row>
         <Title> {bookTitle}</Title></Row>
-      <Author>제출한 날짜: {quizDate}</Author>
+      <Author>제출한 날짜: {date + " " + date1 + " " + date2 + " " + date3}</Author>
       {QuizComponent}
 
     </Wrapper>

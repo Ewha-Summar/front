@@ -94,6 +94,25 @@ margin-left:20px;
   z-index:1;
   outline:none;
 `
+const Index = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-left:7%;
+  justify-content: space-between;
+  flex-wrap:wrap;
+  left:20px;
+`
+const Index2 = styled.div`
+  display: flex;
+  position:absolute;
+  flex-direction: column;
+  margin-left:5%;
+  justify-content: space-between;
+  flex-wrap:wrap;
+  left:50%;
+  top:210px;
+  
+`
 
 function MyQuizPage(match) {
 
@@ -108,6 +127,7 @@ function MyQuizPage(match) {
       setMyState({ status: 'pending' });
       const data = response.payload.data.quiz_list;
       setTimeout(() => setMyScore({ status: 'resolved', member: data }), 600);
+      console.log(myScore);
     });
   }, []);
 
@@ -116,6 +136,7 @@ function MyQuizPage(match) {
       setReviewScore({ status: 'pending' });
       const data = response.payload.data.quiz_list;
       setTimeout(() => setReviewScore({ status: 'resolved', member: data }), 600);
+      console.log(reviewScore);
     });
   }, []);
 
@@ -132,7 +153,7 @@ function MyQuizPage(match) {
           <Content>
             <Title>Origin Test</Title>  <PinkTitle>Review Test</PinkTitle></Content>
 
-          <Content>
+          <Index>
             {myScore.member?.map((test, i) => <BlueScoreWrapper><White>
               <div>
 
@@ -149,7 +170,8 @@ function MyQuizPage(match) {
                     correct_answer={data.correct_answer} />
                 )}
 
-              </div></White></BlueScoreWrapper>)}
+              </div></White></BlueScoreWrapper>)} </Index>
+          <Index2>
             {reviewScore.member?.map((test, i) => <ScoreWrapper><White>
               <div>
 
@@ -168,7 +190,7 @@ function MyQuizPage(match) {
 
               </div></White></ScoreWrapper>)}
 
-          </Content>
+          </Index2>
           <BlankTop DesktopMargin='5' TabletMargin='3' MobileMargin='1' />
         </Wrapper>
       </Fix>

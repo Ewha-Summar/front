@@ -4,7 +4,7 @@ import Button from "../../components/Button"
 
 const Wrapper = styled.div`
 margin-top:50px;
-  width:800px;
+  width:760px;
   height:570px;
   display:flex;
   background: rgba(16, 55, 92, 0.7);
@@ -16,7 +16,7 @@ margin-top:50px;
 const White = styled.div`
 margin-top:100px;
 margin-left:20px;
-  width:760px;
+  width:720px;
   height:450px;
   display:flex;
   background: white;
@@ -58,7 +58,7 @@ display: flex;
 `
 
 
-const Row=styled.div`
+const Row = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -66,17 +66,17 @@ const Row=styled.div`
   margin-left:20px;
 `
 
-function SummaryComponent({bookTitle,bookContent,bookAuthor,saveTitle}){
-    
-    return(
-        <Wrapper>
-            <White> <Row>
-                <Title> {saveTitle}</Title></Row>
-                <Row><Content>{bookContent}</Content></Row>
-                <Author>문서 제목: {bookTitle}</Author><Author>문서 저자: {bookAuthor}</Author>
-            </White> 
-        </Wrapper>
-    );
+function SummaryComponent({ bookTitle, bookContent, bookAuthor, saveTitle }) {
+
+  return (
+    <Wrapper>
+      <White> <Row>
+        <Title> {saveTitle}</Title></Row>
+        <Row><Content>{bookContent}</Content></Row>
+        <Author>문서 제목: {bookTitle}</Author><Author>문서 저자: {bookAuthor}</Author>
+      </White>
+    </Wrapper>
+  );
 }
 
 export default SummaryComponent;

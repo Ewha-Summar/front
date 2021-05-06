@@ -4,7 +4,7 @@ import Button from "../../components/Button"
 
 const Wrapper = styled.div`
 margin-top:50px;
-  width:800px;
+  width:760px;
   height:570px;
   display:flex;
   background: rgba(239, 116, 111, 0.3);
@@ -16,7 +16,7 @@ margin-top:50px;
 const White = styled.div`
 margin-top:100px;
 margin-left:20px;
-  width:760px;
+  width:720px;
   height:450px;
   display:flex;
   background: white;
