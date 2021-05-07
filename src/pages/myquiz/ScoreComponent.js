@@ -67,11 +67,17 @@ const Row = styled.div`
 `
 
 function SummaryComponent({ bookTitle, QuizComponent, quizDate }) {
-  var date = quizDate.split(" ")[0];
-  var date1 = quizDate.split(" ")[1];
-  var date2 = quizDate.split(" ")[2];
-  var date3 = quizDate.split(" ")[3];
-
+  if (quizDate == null) {
+    var date = "";
+    var date1 = "";
+    var date2 = "";
+    var date3 = "미제출";
+  } else {
+    var date = quizDate?.split(" ")[0];
+    var date1 = quizDate?.split(" ")[1];
+    var date2 = quizDate?.split(" ")[2];
+    var date3 = quizDate?.split(" ")[3];
+  }
 
   return (
     <Wrapper>
